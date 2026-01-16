@@ -823,9 +823,9 @@
                                 📧 Contáctame
                             </a>
                             ${portfolioData.personal.cv_link ? `
-                            <a href="${portfolioData.personal.cv_link}" download="Ivan_Apolinar_CV.pdf" class="flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-xl rounded-full text-white font-semibold border border-white/20 hover:bg-white/20 transition-all">
-                                📄 Descargar CV
-                            </a>` : ''}
+                            <button onclick="showCVModal()" class="flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-xl rounded-full text-white font-semibold border border-white/20 hover:bg-white/20 transition-all cursor-pointer">
+                                🧿 Visualizar CV
+                            </button>` : ''}
                         </div>
                     </div>
                 </section>
@@ -1028,6 +1028,53 @@
             init3DHover();
             initScrollReveal();
         };
+
+        // Insert Modal HTML to body if not exists (done once)
+        if (!document.getElementById('cv-modal')) {
+            const modalHtml = `
+                <div id="cv-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+                    <div class="relative bg-gray-900/90 rounded-3xl p-4 max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-white/10 shadow-2xl transform scale-95 transition-transform duration-300" id="cv-modal-content">
+                        <button onclick="closeCVModal()" class="absolute top-4 right-4 text-white text-2xl hover:text-pink-500 transition-colors z-10">✕</button>
+                        <div class="flex flex-col gap-4 items-center p-4">
+                            <h2 class="text-3xl font-bold text-white mb-4 gradient-text">Curriculum Vitae</h2>
+                            <img src="./1cv.jpg" class="w-full rounded-lg shadow-lg" alt="CV Page 1">
+                            <img src="./2cv.jpg" class="w-full rounded-lg shadow-lg" alt="CV Page 2">
+                            <a href="${portfolioData.personal.cv_link}" download="Ivan_Apolinar_CV.pdf" class="mt-6 flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full text-white font-bold text-lg hover:scale-105 transition-transform shadow-lg shadow-pink-500/50">
+                                📄 Descargar C.V en PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+
+        // Modal Logic
+        function showCVModal() {
+            const modal = document.getElementById('cv-modal');
+            const content = document.getElementById('cv-modal-content');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCVModal() {
+            const modal = document.getElementById('cv-modal');
+            const content = document.getElementById('cv-modal-content');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+
+        // Close on click outside
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('cv-modal');
+            if (e.target === modal) {
+                closeCVModal();
+            }
+        });
 
         // Ejecutar el nuevo renderizado inmediatamente
         renderContent();
