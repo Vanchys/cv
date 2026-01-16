@@ -283,7 +283,7 @@
             },
             experience: [
                 { year: "10 Años", description: "Socio Fundador de Smart Transport. Operación general, logística, estructura de rutas, atención a clientes y toma de decisiones estratégicas." },
-                { year: "6-7 Años", description: "Fundador de Operadora Turística Tehuacán – Oaxaca. Fundador de ruta y gestión operativa." },
+                { year: "7 Años", description: "Fundador de Operadora Turística Tehuacán – Oaxaca. Fundador de ruta y gestión operativa." },
                 { year: "Actual", description: "Propietario de Tienda de Abarrotes. Administración diaria, ventas, control de personal y operación." },
                 { year: "Previo", description: "Experiencia operativa en ventas y distribución en empresas como Pepsico, Alpura y Big Cola." }
             ],
@@ -298,7 +298,7 @@
             projects: [
                 {
                     title: "Smart Transport",
-                    desc: "Base operativa y financiera para múltiples emprendimientos. Logística y estrategia.",
+                    desc: "Base operativa y logística para múltiples emprendimientos. Operación y estrategia.",
                     tags: ["Logística", "Estrategia", "Gestión"],
                     gradient: "from-pink-500 to-purple-500"
                 },
@@ -310,7 +310,7 @@
                 },
                 {
                     title: "Luxor Travel",
-                    desc: "Modelo de negocio escalable con inversionistas para transporte.",
+                    desc: "Modelo de negocio escalable con inversión para transporte.",
                     tags: ["Scalability", "Business Model", "Investment"],
                     gradient: "from-cyan-500 to-pink-500"
                 }
@@ -674,6 +674,8 @@
 
         const scrollDownSound = new Audio('1.mp3');
         const scrollUpSound = new Audio('2.mp3');
+        scrollDownSound.volume = 0.8; // 80% Volumen
+        scrollUpSound.volume = 0.8;   // 80% Volumen
 
         // Manejo de música de fondo (Autoplay policy fix)
         let musicStarted = false;
@@ -695,30 +697,11 @@
         window.addEventListener('scroll', startMusic, { once: true });
 
 
-        // Control de Scroll (Sonidos y Visibilidad)
-        let lastScrollTop = 0;
-        let isThrottled = false;
-
+        // Control de Visibilidad del Texto Bio (Mantenemos scroll simple para esto)
         window.addEventListener('scroll', () => {
             const st = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollDir = st > lastScrollTop ? 'down' : 'up';
 
-            // 1. Sonidos de Scroll (Throttled para no saturar)
-            if (!isThrottled && Math.abs(st - lastScrollTop) > 5) { // Pequeño umbral para evitar micro-movimientos
-                if (scrollDir === 'down') {
-                    scrollDownSound.currentTime = 0;
-                    scrollDownSound.play().catch(() => { });
-                } else {
-                    scrollUpSound.currentTime = 0;
-                    scrollUpSound.play().catch(() => { });
-                }
-
-                isThrottled = true;
-                setTimeout(() => { isThrottled = false; }, 200); // Esperar 200ms entre sonidos
-            }
-
-            // 2. Visibilidad del Texto Bio
-            // El texto debe aparecer SOLO cuando se desliza más de la mitad de la pantalla visible (viewport)
+            // Visibilidad del Texto Bio
             const bioText = document.getElementById('bio-text');
             if (bioText) {
                 const viewportHeight = window.innerHeight;
@@ -731,9 +714,45 @@
                     bioText.classList.remove('opacity-100', 'translate-y-0');
                 }
             }
-
-            lastScrollTop = st <= 0 ? 0 : st;
         }, false);
+
+
+        // Control de Sonidos por Secciones (Intersection Observer)
+        // Solo suena una vez al cambiar de sección
+
+        // Esperar a que el contenido se renderice antes de buscar secciones
+        setTimeout(() => {
+            const sections = document.querySelectorAll('section');
+            let currentSectionIndex = 0;
+
+            const audioSectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const newIndex = Array.from(sections).indexOf(entry.target);
+
+                        // Solo sonar si cambiamos de sección (ignorando la carga inicial si es el top)
+                        if (newIndex !== -1 && newIndex !== currentSectionIndex) {
+
+                            if (newIndex > currentSectionIndex) {
+                                // Bajando
+                                scrollDownSound.currentTime = 0;
+                                scrollDownSound.play().catch(() => { });
+                            } else if (newIndex < currentSectionIndex) {
+                                // Subiendo
+                                scrollUpSound.currentTime = 0;
+                                scrollUpSound.play().catch(() => { });
+                            }
+
+                            currentSectionIndex = newIndex;
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.3 // Detectar cuando el 30% de la sección es visible
+            });
+
+            sections.forEach(section => audioSectionObserver.observe(section));
+        }, 100);
 
 
         // Modificar renderContent para inyectar ID y Clases al Bio
