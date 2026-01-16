@@ -351,8 +351,8 @@
                     { icon: "✈️", name: "Viajes" }
                 ],
                 languages: [
-                    { flag: "🇲🇽", border: "pink-500", name: "Español", level: "Nativo (100%)", percent: 100, barColor: "pink-500" },
-                    { flag: "🇺🇸", border: "yellow-500", name: "Inglés", level: "Básico (40%)", percent: 40, barColor: "yellow-500" }
+                    { flag: "🇲🇽", border: "pink-500", name: "Español", level: "Nativo (100%)", percent: 100, stars: 5 },
+                    { flag: "🇺🇸", border: "purple-500", name: "Inglés", level: "Básico (40%)", percent: 40, stars: 2.5 }
                 ]
             }
         };
@@ -971,9 +971,35 @@
                 </div>
             `).join('');
 
-            const langItems = portfolioData.contact.languages.map(lang => `
-                <div class="w-16 h-16 rounded-full border-2 border-${lang.border} flex items-center justify-center text-3xl bg-white/5 hover:scale-125 transition-transform">${lang.flag}</div>
-            `).join('');
+            const langItems = portfolioData.contact.languages.map(lang => {
+                const fullStars = Math.floor(lang.stars);
+                const hasHalfStar = lang.stars % 1 !== 0;
+                let starsHtml = '';
+
+                for (let i = 0; i < 5; i++) {
+                    if (i < fullStars) {
+                        starsHtml += '<span class="text-yellow-400">★</span>';
+                    } else if (i === fullStars && hasHalfStar) {
+                        starsHtml += '<span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-gray-600" style="-webkit-background-clip: text;">★</span>';
+                    } else {
+                        starsHtml += '<span class="text-gray-600">★</span>';
+                    }
+                }
+
+                return `
+                <div class="flex items-center gap-4 bg-white/5 p-3 rounded-xl border border-white/5 hover:border-${lang.border}/50 transition-all hover:scale-105 w-full">
+                    <div class="w-12 h-12 rounded-full border-2 border-${lang.border} flex items-center justify-center text-2xl bg-black/20 shrink-0">${lang.flag}</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-center mb-1">
+                            <h5 class="text-white font-bold truncate mr-2">${lang.name}</h5>
+                            <span class="text-gray-400 text-sm">${lang.level}</span>
+                        </div>
+                        <div class="text-xl flex tracking-widest leading-none">
+                             ${starsHtml}
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
 
             html += `
                 <section id="contact" class="min-h-screen flex items-center justify-center px-8 py-20">
@@ -989,7 +1015,7 @@
                                 <div class="grid grid-cols-2 gap-4 mb-8">${hobbiesItems}</div>
                                 <div>
                                     <h4 class="text-xl font-bold text-white mb-4">Idiomas</h4>
-                                    <div class="flex gap-4 flex-wrap">${langItems}</div>
+                                    <div class="flex flex-col gap-4">${langItems}</div>
                                 </div>
                             </div>
                         </div>
@@ -1009,4 +1035,3 @@
 </body>
 
 </html>
-
