@@ -268,8 +268,8 @@
             sections: [
                 { id: 'hero', icon: '🏠', label: 'Inicio' },
                 { id: 'about', icon: '👤', label: 'Sobre Mí' },
-                { id: 'experience', icon: '💼', label: 'Experiencia' },
                 { id: 'skills', icon: '⭐', label: 'Habilidades' },
+                { id: 'experience', icon: '💼', label: 'Experiencia' },
                 { id: 'projects', icon: '📁', label: 'Proyectos' },
                 { id: 'contact', icon: '📧', label: 'Contacto' }
             ],
@@ -297,21 +297,21 @@
             ],
             projects: [
                 {
-                    title: "Smart Transport",
-                    desc: "Base operativa y logística para múltiples emprendimientos. Operación y estrategia.",
-                    tags: ["Logística", "Estrategia", "Gestión"],
-                    gradient: "from-pink-500 to-purple-500"
-                },
-                {
                     title: "Automatización con IA",
                     desc: "Scripts con API de Claude para transformar datos y automatizar procesos.",
                     tags: ["AI", "Claude API", "Python"],
-                    gradient: "from-purple-500 to-cyan-500"
+                    gradient: "from-pink-500 to-purple-500"
                 },
                 {
                     title: "Luxor Travel",
-                    desc: "Modelo de negocio escalable con inversión para transporte.",
+                    desc: "Modelo de negocio escalable con inversión para transporte Federal.",
                     tags: ["Scalability", "Business Model", "Investment"],
+                    gradient: "from-purple-500 to-cyan-500"
+                },
+                {
+                    title: "NuVa Drive",
+                    desc: "Proyecto de Transport Local.",
+                    tags: ["Logistics", "Strategy", "Management"],
                     gradient: "from-cyan-500 to-pink-500"
                 }
             ],
@@ -831,29 +831,6 @@
                 </section>
             `;
 
-            // Experience
-            const expItems = portfolioData.experience.map((item, index) => {
-                const animClass = index % 2 === 0 ? 'reveal-left' : 'reveal-right';
-                return `
-                <div class="flex flex-col md:flex-row gap-6 items-start glass-card rounded-2xl p-6 hover-3d reveal-base ${animClass}" style="animation-delay: ${Math.random() * 2}s">
-                    <div class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-xl font-bold text-lg min-w-[80px] text-center shadow-lg shadow-pink-500/50">
-                        ${item.year}
-                    </div>
-                    <p class="text-gray-300 text-lg leading-relaxed flex-1 pt-2">
-                        ${item.description}
-                    </p>
-                </div>
-            `}).join('');
-
-            html += `
-                <section id="experience" class="min-h-screen flex items-center justify-center px-8 py-20">
-                    <div class="max-w-6xl mx-auto w-full">
-                        <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-zoom">Experiencia y Logros</h2>
-                        <div class="space-y-6">${expItems}</div>
-                    </div>
-                </section>
-            `;
-
             // Skills
             const skillItems = portfolioData.skills.map((skill, index) => `
                 <div class="glass-card rounded-2xl p-6 hover-3d reveal-base reveal-rotate" style="transition-delay: ${index * 100}ms; animation-delay: ${Math.random() * 2}s">
@@ -878,6 +855,29 @@
                     <div class="max-w-6xl mx-auto w-full">
                         <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-up">Habilidades</h2>
                         <div class="grid md:grid-cols-2 gap-8">${skillItems}</div>
+                    </div>
+                </section>
+            `;
+
+            // Experience
+            const expItems = portfolioData.experience.map((item, index) => {
+                const animClass = index % 2 === 0 ? 'reveal-left' : 'reveal-right';
+                return `
+                <div class="flex flex-col md:flex-row gap-6 items-start glass-card rounded-2xl p-6 hover-3d reveal-base ${animClass}" style="animation-delay: ${Math.random() * 2}s">
+                    <div class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-xl font-bold text-lg min-w-[80px] text-center shadow-lg shadow-pink-500/50">
+                        ${item.year}
+                    </div>
+                    <p class="text-gray-300 text-lg leading-relaxed flex-1 pt-2">
+                        ${item.description}
+                    </p>
+                </div>
+            `}).join('');
+
+            html += `
+                <section id="experience" class="min-h-screen flex items-center justify-center px-8 py-20">
+                    <div class="max-w-6xl mx-auto w-full">
+                        <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-zoom">Experiencia y Logros</h2>
+                        <div class="space-y-6">${expItems}</div>
                     </div>
                 </section>
             `;
