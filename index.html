@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -282,8 +282,8 @@
                 }
             },
             experience: [
-                { year: "10 Años", description: "Socio Fundador de Smart Transport. Operación general, logística, estructura de rutas, atención a clientes y toma de decisiones estratégicas." },
-                { year: "7 Años", description: "Fundador de Operadora Turística Tehuacán – Oaxaca. Socio Fundador de ruta con escala en Nochixtlan." },
+                { year: "8 Años", description: "Socio Fundador de Smart Transport. Operación general, logística, estructura de rutas, atención a clientes y toma de decisiones estratégicas." },
+                { year: "5 Años", description: "Fundador de Operadora Turística Tehuacán – Oaxaca. Socio Fundador de ruta con escala en Nochixtlan." },
                 { year: "Actual", description: "Propietario de Tienda de Abarrotes. Administración diaria, ventas, control de personal y operación." },
                 { year: "Previo", description: "Experiencia operativa en ventas y distribución en empresas como Pepsico, Alpura y Big Cola." }
             ],
@@ -320,20 +320,23 @@
                     title: "Luxor Travel",
                     desc: "Modelo de negocio de inversión y escalable para Transporte Federal.",
                     tags: ["Scalability", "Business Model", "Investment"],
-                    image: "./lux.jpg"
+                    image: "./lux.jpg",
+                    link: "https://www.facebook.com/p/LUXOR-Travel-61559858225526/"
                 },
                 {
                     title: "Smart Transports",
                     desc: "Agencia de viajes líder entre: Tehuacán, Cuacnopalan, Puebla, México.",
                     tags: ["Transport", "Logistics", "Strategy"],
                     gradient: "from-green-500 to-emerald-700",
-                    image: "./smt.jpg"
+                    image: "./smt.jpg",
+                    link: "https://www.smarttransports.mx/"
                 },
                 {
-                 title: "Elegance Travel",
-                    desc: "Transporte Ejecutivo Local. https://elegancetravel.github.io/1/",
+                    title: "Elegance Travel",
+                    desc: "Transporte Ejecutivo Local.",
                     tags: ["Transport", "Strategy", "Service"],
-                    image: "./nuv.jpg"
+                    image: "./nuv.jpg",
+                    link: "https://elegancetravel.github.io/1/"
                 }
             ],
             education: [],
@@ -922,9 +925,14 @@
                     <div class="p-6">
                         <h3 class="text-2xl font-bold text-white mb-2">${proj.title}</h3>
                         <p class="text-gray-400 mb-4">${proj.desc}</p>
-                        <div class="flex flex-wrap gap-2">
+                        <div class="flex flex-wrap gap-2 mb-4">
                             ${proj.tags.map(tag => `<span class="px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full text-sm">${tag}</span>`).join('')}
                         </div>
+                        ${proj.link ? `
+                            <a href="${proj.link}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 transition-colors font-medium">
+                                🔗 Ver referencia
+                            </a>
+                        ` : ''}
                     </div>
                 </div>
             `).join('');
@@ -1082,7 +1090,3 @@
 </body>
 
 </html>
-
-
-
-
