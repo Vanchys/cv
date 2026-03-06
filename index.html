@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarjeta de Presentación | Ivan Apolinar</title>
     <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
     <meta property="og:title" content="Tarjeta de Presentación | Ivan Apolinar">
     <meta property="og:description" content="Escanea mi tarjeta digital y guarda mi contacto.">
     <meta property="og:image" content="logo.png">
@@ -1199,8 +1200,9 @@
         const preloader = document.getElementById('preloader');
 
         const loadingInterval = setInterval(() => {
-            // Simulamos avance hasta 100%
-            loadProgress += Math.floor(Math.random() * 10) + 5;
+            // Avance constante para durar exactamente 3 segundos (3000ms)
+            // 30ms * 100 pasos = 3000ms
+            loadProgress += 1;
             if (loadProgress >= 100) {
                 loadProgress = 100;
                 clearInterval(loadingInterval);
@@ -1230,9 +1232,9 @@
 
         // --- SISTEMA DE ESTADÍSTICAS DE VISITAS ---
         (function () {
-            // Detectar fuente de la visita por parámetro URL
+            // Detectar fuente de la visita por parámetro URL (soporta ?src= y ?source= por retrocompatibilidad)
             const urlParams = new URLSearchParams(window.location.search);
-            const source = urlParams.get('source') || 'web'; // 'qr', 'nfc', o 'web'
+            const source = urlParams.get('src') || urlParams.get('source') || 'web'; // 'qr', 'nfc', o 'web'
 
             // Claves en localStorage
             const STATS_KEY = 'visitStats';
@@ -1256,12 +1258,12 @@
             stats.total = (stats.total || 0) + 1;
             localStorage.setItem(STATS_KEY, JSON.stringify(stats));
 
-            // Enviar evento a Google Analytics (cuando se configure el ID)
+            // Enviar evento especifico (ej: visit_nfc) a Google Analytics
             if (typeof gtag === 'function') {
-                gtag('event', 'page_visit', {
-                    'visit_source': source,
+                const eventName = 'visit_' + source.toLowerCase(); // genera: visit_nfc, visit_qr, visit_web
+                gtag('event', eventName, {
                     'event_category': 'tarjeta_digital',
-                    'event_label': 'Visita desde ' + source.toUpperCase()
+                    'event_label': 'Visita por ' + source.toUpperCase()
                 });
             }
 
