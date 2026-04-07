@@ -316,9 +316,9 @@
 
             // Hero
             html += `
-                <section id="hero" style="min-height:100svh;display:flex;align-items:center;justify-content:center;padding-top:4rem;padding-bottom:2rem;overflow:hidden;">
+                <section id="hero" style="min-height:100svh;display:flex;align-items:center;justify-content:center;padding-top:3rem;padding-bottom:2rem;overflow:hidden;">
                     <div style="max-width:48rem;width:100%;margin:0 auto;text-align:center;padding:0 1rem;" class="reveal-base reveal-zoom">
-                        <div style="position:relative;display:inline-block;margin-bottom:1.5rem;" class="floating">
+                        <div style="position:relative;display:inline-block;margin-bottom:3rem;" class="floating">
                             <div style="position:absolute;inset:-8px;background:linear-gradient(to right,#ff0080,#8000ff,#00bfff);border-radius:9999px;filter:blur(20px);opacity:0.5;"></div>
                             <div style="position:relative;width:15rem;height:15rem;border-radius:9999px;background:linear-gradient(to right,#ff0080,#00bfff);padding:3px;margin:0 auto;">
                                 <div style="width:100%;height:100%;border-radius:9999px;background:#000;overflow:hidden;">
@@ -329,17 +329,17 @@
                                 </div>
                             </div>
                         </div>
-                        <h1 style="font-size:clamp(2rem,10vw,5rem);font-weight:800;margin-bottom:0.25rem;line-height:1.1;word-break:break-word;overflow-wrap:break-word;" class="gradient-text">
+                        <h1 style="font-size:clamp(2rem,10vw,5rem);font-weight:800;margin-bottom:0.75rem;line-height:1.1;word-break:break-word;overflow-wrap:break-word;" class="gradient-text">
                             ${portfolioData.personal.name}
                         </h1>
-                        <p style="font-size:clamp(1rem,4vw,1.5rem);color:#c084fc;margin-bottom:0.1rem;font-weight:300;">
+                        <p style="font-size:clamp(1rem,4vw,1.5rem);color:#c084fc;margin-bottom:0.5rem;font-weight:300;">
                             ${portfolioData.personal.title}
                         </p>
-                        <p style="font-size:0.95rem;color:#9ca3af;margin-bottom:1.5rem;">
+                        <p style="font-size:0.95rem;color:#9ca3af;margin-bottom:2rem;">
                             ${portfolioData.personal.age_location}
                         </p>
                         <!-- Texto bio retirado para no generar espacios invisibles -->
-                        <div style="display:flex;flex-direction:column;gap:0.75rem;align-items:center;width:100%;max-width:280px;margin:0 auto;">
+                        <div style="display:flex;flex-direction:column;gap:1.2rem;align-items:center;width:100%;max-width:280px;margin:0 auto;">
                             ${portfolioData.personal.cv_link ? `
                             <button onclick="showCVModal()" class="cv-btn" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff0080,#8000ff,#00bfff);border-radius:9999px;color:#fff;font-weight:600;border:none;cursor:pointer;width:100%;font-size:0.95rem;box-shadow:0 10px 30px rgba(255,0,128,0.35);">
                                 🧿 Visualizar CV
