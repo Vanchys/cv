@@ -570,7 +570,7 @@
             const modalHtml = `
                 <div id="cv-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
                     <div class="relative bg-gray-900/90 rounded-3xl p-4 max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-white/10 shadow-2xl transform scale-95 transition-transform duration-300" id="cv-modal-content">
-                        <button onclick="closeCVModal()" class="absolute top-4 right-4 text-white text-2xl hover:text-pink-500 transition-colors z-10">✕</button>
+                        <button onclick="closeCVModal()" class="close-modal-btn absolute top-4 right-4 text-white text-2xl hover:text-pink-500 transition-colors z-10">✕</button>
                         <div class="flex flex-col gap-4 items-center p-4">
                             <h2 class="text-3xl font-bold text-white mb-4 gradient-text">Curriculum Vitae</h2>
                             <img src="./1cv.jpg" class="w-full rounded-lg shadow-lg" alt="CV Page 1">
@@ -717,8 +717,8 @@
                     return;
                 }
 
-                // Excepción: Los botones de navegación se ejecutan al instante (un toque)
-                if (target.classList.contains('nav-btn') || target.closest('#nav-container')) {
+                // Excepción: Los botones de navegación y botones de cerrar modal se ejecutan al instante (un toque)
+                if (target.classList.contains('nav-btn') || target.closest('#nav-container') || target.classList.contains('close-modal-btn')) {
                     document.querySelectorAll('.is-selected').forEach(el => el.classList.remove('is-selected'));
                     return;
                 }
