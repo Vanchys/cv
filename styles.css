@@ -430,10 +430,10 @@ footer {
         padding-top: 5vh !important; /* Fuerza a subir todo el bloque en pantallas chicas */
     }
     .hero-image-wrap {
-        margin-bottom: 2rem !important; /* Espacio exacto entre Foto y Nombre */
+        margin-bottom: 3.5rem !important; /* ⬆️ Aumentado el espacio entre Foto y Nombre */
     }
     .hero-text-wrap {
-        margin-bottom: 3.5rem !important; /* Espacio masivo entre Texto y Botones */
+        margin-bottom: 4.5rem !important; /* ⬆️ Aumentado el espacio entre Texto y Botones para ser igual de notorio */
     }
 }
 @media (min-width: 640px) {
