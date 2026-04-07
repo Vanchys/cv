@@ -316,8 +316,8 @@
 
             // Hero
             html += `
-                <section id="hero" style="min-height:100svh;display:flex;align-items:center;justify-content:center;padding-top:12rem;padding-bottom:2rem;overflow:hidden;">
-                    <div style="max-width:48rem;width:100%;margin:0 auto;text-align:center;padding:0 1rem;transform: translateY(12vh);" class="reveal-base reveal-zoom">
+                <section id="hero" style="min-height:100svh;display:flex;align-items:center;justify-content:center;padding-top:8rem;padding-bottom:2rem;overflow:hidden;">
+                    <div style="max-width:48rem;width:100%;margin:0 auto;text-align:center;padding:0 1rem;" class="reveal-base reveal-zoom">
                         <div style="position:relative;display:inline-block;margin-bottom:1.5rem;" class="floating">
                             <div style="position:absolute;inset:-8px;background:linear-gradient(to right,#ff0080,#8000ff,#00bfff);border-radius:9999px;filter:blur(20px);opacity:0.5;"></div>
                             <div style="position:relative;width:15rem;height:15rem;border-radius:9999px;background:linear-gradient(to right,#ff0080,#00bfff);padding:3px;margin:0 auto;">
