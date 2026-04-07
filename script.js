@@ -335,7 +335,7 @@
                         <p style="font-size:clamp(1rem,4vw,1.5rem);color:#c084fc;margin-bottom:0.5rem;font-weight:300;">
                             ${portfolioData.personal.title}
                         </p>
-                        <p style="font-size:0.95rem;color:#9ca3af;margin-bottom:2rem;">
+                        <p style="font-size:0.95rem;color:#9ca3af;margin-bottom:4rem;">
                             ${portfolioData.personal.age_location}
                         </p>
                         <!-- Texto bio retirado para no generar espacios invisibles -->
