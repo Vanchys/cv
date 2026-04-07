@@ -648,9 +648,9 @@
                             appContent.classList.remove('page-loading');
                             appContent.classList.add('page-loaded'); // Inicia page fade-in
                         }
-                    }, 700);
+                    }, 300); // Reducido de 700ms a 300ms para que sea casi instantáneo
                 }
-            }, 200); // Pequeña pausa al llegar al 100% antes de desvanecer
+            }, 0); // Eliminada la pausa de 200ms al llegar al 100%
         }
 
         // --- SISTEMA DE ESTADÍSTICAS DE VISITAS ---
