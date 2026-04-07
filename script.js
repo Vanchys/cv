@@ -318,9 +318,9 @@
             html += `
                 <section id="hero" style="min-height:100svh;display:flex;align-items:center;justify-content:center;padding-top:5rem;padding-bottom:2rem;overflow:hidden;">
                     <div style="max-width:48rem;width:100%;margin:0 auto;text-align:center;padding:0 1rem;" class="reveal-base reveal-zoom">
-                        <div style="position:relative;display:inline-block;margin-bottom:1.5rem;" class="floating">
+                        <div style="position:relative;display:inline-block;margin-bottom:2.5rem;" class="floating">
                             <div style="position:absolute;inset:-8px;background:linear-gradient(to right,#ff0080,#8000ff,#00bfff);border-radius:9999px;filter:blur(20px);opacity:0.5;"></div>
-                            <div style="position:relative;width:9rem;height:9rem;border-radius:9999px;background:linear-gradient(to right,#ff0080,#00bfff);padding:3px;margin:0 auto;">
+                            <div style="position:relative;width:12rem;height:12rem;border-radius:9999px;background:linear-gradient(to right,#ff0080,#00bfff);padding:3px;margin:0 auto;">
                                 <div style="width:100%;height:100%;border-radius:9999px;background:#000;overflow:hidden;">
                                     ${portfolioData.personal.photo ?
                     `<img src="${portfolioData.personal.photo}" alt="${portfolioData.personal.name}" style="width:100%;height:100%;object-fit:cover;">` :
@@ -633,7 +633,7 @@
             }
             if (preloaderBar) preloaderBar.style.width = loadProgress + '%';
             if (preloaderText) preloaderText.textContent = 'CARGANDO ' + loadProgress + '%';
-        }, 15);
+        }, 10);
 
         function finishLoading() {
             setTimeout(() => {
