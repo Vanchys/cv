@@ -48,13 +48,16 @@
             max-width: 100vw !important;
             box-sizing: border-box !important;
         }
-        /* Prevent animated background from causing overflow */
-        #animated-bg, #particles {
-            left: 0 !important;
-            right: 0 !important;
-            width: 100% !important;
-            max-width: 100vw !important;
-            overflow: hidden !important;
+        /* Pulse and glow animation for selected buttons */
+        .is-selected {
+            animation: button-pulse 0.8s infinite alternate !important;
+            box-shadow: 0 0 25px rgba(255, 0, 128, 1) !important;
+            border: 2px solid white !important;
+            transform: scale(1.05) !important;
+        }
+        @keyframes button-pulse {
+            from { transform: scale(1.02); filter: brightness(1); }
+            to { transform: scale(1.08); filter: brightness(1.3); }
         }
     </style>
 </head>
