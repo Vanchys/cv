@@ -52,32 +52,25 @@
         .is-selected {
             position: relative;
             z-index: 10;
-            overflow: visible !important;
-            transform: scale(1.02) translateY(-2px) !important;
+            transform: scale(1.05) !important;
             transition: all 0.3s ease !important;
-            box-shadow: 0 0 30px rgba(255, 0, 128, 0.6) !important;
-        }
-        .is-selected::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            background: conic-gradient(from 0deg, transparent, #ff0080, #00bfff, transparent);
-            border-radius: 9999px;
-            animation: border-spin 1.2s linear infinite;
-            z-index: -1;
-            padding: 3px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4) !important;
         }
         .is-selected::after {
             content: '';
             position: absolute;
-            inset: -1px;
-            background: #000;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
             border-radius: 9999px;
-            z-index: -1;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #fff;
+            border-bottom-color: #fff;
+            animation: border-spin 1s linear infinite;
+            pointer-events: none;
+            z-index: 1;
         }
         @keyframes border-spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
