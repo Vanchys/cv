@@ -423,3 +423,30 @@ footer {
     background: rgba(255, 0, 128, 0.3);
     border-radius: 4px;
 }
+
+/* Mobile-Specific Hero Layout Tuning */
+@media (max-width: 639px) {
+    .hero-section {
+        padding-top: 5vh !important; /* Fuerza a subir todo el bloque en pantallas chicas */
+    }
+    .hero-image-wrap {
+        margin-bottom: 2rem !important; /* Espacio exacto entre Foto y Nombre */
+    }
+    .hero-text-wrap {
+        margin-bottom: 3.5rem !important; /* Espacio masivo entre Texto y Botones */
+    }
+}
+@media (min-width: 640px) {
+    .hero-section {
+        padding-top: 10vh !important;
+    }
+    .hero-image-wrap {
+        margin-bottom: 1.5rem !important;
+    }
+    .hero-text-wrap {
+        margin-bottom: 2rem !important;
+    }
+}
+.hero-btn-group {
+    gap: 1.2rem !important; /* Espacio entre los dos botones */
+}
