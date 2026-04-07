@@ -110,8 +110,9 @@
         function renderNav() {
             const container = document.getElementById('nav-container');
             container.innerHTML = portfolioData.sections.map(section => `
-                <button onclick="scrollToSection('${section.id}')" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 text-gray-400 hover:text-white shrink-0">
-                    <span>${section.icon}</span> <span class="hidden md:inline">${section.label}</span>
+                <button onclick="scrollToSection('${section.id}')" class="nav-btn" title="${section.label}">
+                    <span style="font-size:1.1rem;">${section.icon}</span>
+                    <span class="nav-label">${section.label}</span>
                 </button>
             `).join('');
         }
@@ -141,12 +142,14 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
-                    } else {
-                        // Remove active class to reset animation when out of view
-                        entry.target.classList.remove('active');
+                        // Once revealed, stop observing (one-way animation)
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.1 });
+            }, {
+                threshold: 0.05,       // Trigger when just 5% is visible
+                rootMargin: '0px 0px -30px 0px'  // Trigger slightly before bottom of viewport
+            });
 
             document.querySelectorAll('.reveal-base').forEach(el => observer.observe(el));
         }
@@ -176,18 +179,22 @@
         }
 
         // Partículas
+        // Partículas — solo dentro del viewport para evitar overflow
         const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 30; i++) {
+        particlesContainer.style.overflow = 'hidden';
+        for (let i = 0; i < 20; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
-            particle.style.width = Math.random() * 4 + 2 + 'px';
-            particle.style.height = particle.style.width;
-            particle.style.left = Math.random() * 100 + '%';
+            const size = Math.random() * 3 + 1.5;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            // Limitar al 90% del ancho para evitar partículas en el borde
+            particle.style.left = (Math.random() * 90 + 5) + '%';
             particle.style.top = Math.random() * 100 + '%';
             particle.style.background = 'white';
-            particle.style.opacity = Math.random() * 0.5 + 0.2;
-            particle.style.animationDelay = Math.random() * 5 + 's';
-            particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+            particle.style.opacity = Math.random() * 0.4 + 0.1;
+            particle.style.animationDelay = Math.random() * 8 + 's';
+            particle.style.animationDuration = Math.random() * 12 + 12 + 's';
             particlesContainer.appendChild(particle);
         }
 
@@ -309,38 +316,37 @@
 
             // Hero
             html += `
-                <section id="hero" class="min-h-screen flex items-center justify-center px-8 relative">
-                    <div class="max-w-6xl mx-auto text-center reveal-base reveal-zoom">
-                        <div class="relative inline-block mb-8 mt-40 floating max-w-full">
-                            <div class="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 rounded-full blur-3xl opacity-50 animate-pulse"></div>
-                            <div class="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-to-r from-pink-500 to-cyan-500 p-1 mx-auto">
-                                <div class="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
+                <section id="hero" style="min-height:100svh;display:flex;align-items:center;justify-content:center;padding-top:5rem;padding-bottom:2rem;overflow:hidden;">
+                    <div style="max-width:48rem;width:100%;margin:0 auto;text-align:center;padding:0 1rem;" class="reveal-base reveal-zoom">
+                        <div style="position:relative;display:inline-block;margin-bottom:1.5rem;" class="floating">
+                            <div style="position:absolute;inset:-8px;background:linear-gradient(to right,#ff0080,#8000ff,#00bfff);border-radius:9999px;filter:blur(20px);opacity:0.5;"></div>
+                            <div style="position:relative;width:9rem;height:9rem;border-radius:9999px;background:linear-gradient(to right,#ff0080,#00bfff);padding:3px;margin:0 auto;">
+                                <div style="width:100%;height:100%;border-radius:9999px;background:#000;overflow:hidden;">
                                     ${portfolioData.personal.photo ?
-                    `<img src="${portfolioData.personal.photo}" alt="${portfolioData.personal.name}" class="w-full h-full object-cover">` :
-                    `<div class="text-8xl font-bold gradient-text">${portfolioData.personal.initials}</div>`
+                    `<img src="${portfolioData.personal.photo}" alt="${portfolioData.personal.name}" style="width:100%;height:100%;object-fit:cover;">` :
+                    `<div style="font-size:3rem;font-weight:700;" class="gradient-text">${portfolioData.personal.initials}</div>`
                 }
                                 </div>
                             </div>
                         </div>
-                        <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold mb-6 gradient-text animate-pulse break-words px-2 max-w-[90vw] mx-auto overflow-hidden">
+                        <h1 style="font-size:clamp(2rem,10vw,5rem);font-weight:800;margin-bottom:0.75rem;line-height:1.1;word-break:break-word;overflow-wrap:break-word;" class="gradient-text">
                             ${portfolioData.personal.name}
                         </h1>
-                        <p class="text-3xl md:text-4xl text-purple-300 mb-2 font-light">
+                        <p style="font-size:clamp(1rem,4vw,1.5rem);color:#c084fc;margin-bottom:0.5rem;font-weight:300;">
                             ${portfolioData.personal.title}
                         </p>
-                        <p class="text-lg text-gray-400 mb-4">
+                        <p style="font-size:0.95rem;color:#9ca3af;margin-bottom:1rem;">
                             ${portfolioData.personal.age_location}
                         </p>
-                        <!-- MODIFICADO: ID agregado y clases de ocultamiento inicial -->
-                        <p id="bio-text" class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto transition-all duration-1000 opacity-0 translate-y-10">
+                        <p id="bio-text" style="font-size:1rem;color:#9ca3af;margin-bottom:2rem;max-width:36rem;margin-left:auto;margin-right:auto;line-height:1.7;transition:all 1s ease;opacity:0;transform:translateY(10px);">
                             ${portfolioData.personal.bio}
                         </p>
-                        <div class="flex flex-col sm:flex-row w-full max-w-[280px] sm:max-w-none mx-auto gap-4 justify-center items-stretch sm:items-center px-1">
-                            <a href="#contact" class="flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 rounded-full text-white font-semibold shadow-xl shadow-pink-500/50 transition-transform hover:scale-105 w-full sm:w-auto shrink-0 touch-manipulation">
+                        <div style="display:flex;flex-direction:column;gap:0.75rem;align-items:center;width:100%;max-width:280px;margin:0 auto;">
+                            <a href="#contact" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff0080,#8000ff,#00bfff);border-radius:9999px;color:#fff;font-weight:600;text-decoration:none;width:100%;font-size:0.95rem;box-shadow:0 10px 30px rgba(255,0,128,0.35);">
                                 📧 Contáctame
                             </a>
                             ${portfolioData.personal.cv_link ? `
-                            <button onclick="showCVModal()" class="flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 rounded-full text-white font-semibold shadow-xl shadow-pink-500/50 transition-transform hover:scale-105 cursor-pointer w-full sm:w-auto shrink-0 touch-manipulation">
+                            <button onclick="showCVModal()" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff0080,#8000ff,#00bfff);border-radius:9999px;color:#fff;font-weight:600;border:none;cursor:pointer;width:100%;font-size:0.95rem;box-shadow:0 10px 30px rgba(255,0,128,0.35);">
                                 🧿 Visualizar CV
                             </button>` : ''}
                         </div>
@@ -350,27 +356,27 @@
 
             // About
             html += `
-                <section id="about" class="min-h-screen flex items-center justify-center px-8 py-20">
-                    <div class="max-w-6xl mx-auto">
-                        <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-up">Sobre Mí</h2>
-                        <div class="grid md:grid-cols-2 gap-12 items-center">
-                            <div class="glass-card rounded-3xl p-8 hover-3d reveal-base reveal-left">
-                                <p class="text-gray-300 text-lg leading-relaxed mb-4">${portfolioData.about.main}</p>
-                                <p class="text-gray-300 text-lg leading-relaxed mb-6">${portfolioData.about.secondary}</p>
-                                <div class="flex gap-6 mt-8">
-                                    <div class="text-4xl floating cursor-default hover:scale-125 transition-transform" style="animation-delay: 0s" title="Estrategia">🎯</div>
-                                    <div class="text-4xl floating cursor-default hover:scale-125 transition-transform" style="animation-delay: 1s" title="Análisis">📊</div>
-                                    <div class="text-4xl floating cursor-default hover:scale-125 transition-transform" style="animation-delay: 2s" title="Crecimiento">🚀</div>
-                                    <div class="text-4xl floating cursor-default hover:scale-125 transition-transform" style="animation-delay: 0.5s" title="Tecnología">🤖</div>
-                                    <div class="text-4xl floating cursor-default hover:scale-125 transition-transform" style="animation-delay: 1.5s" title="Innovación">💡</div>
+                <section id="about" style="padding-top:5rem;padding-bottom:3rem;overflow:hidden;">
+                    <div style="max-width:72rem;margin:0 auto;padding:0 1rem;">
+                        <h2 style="font-size:clamp(2rem,8vw,3.5rem);font-weight:800;margin-bottom:2.5rem;text-align:center;" class="gradient-text reveal-base reveal-up">Sobre Mí</h2>
+                        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+                            <div class="glass-card reveal-base reveal-left" style="border-radius:1.5rem;padding:1.5rem;">
+                                <p style="color:#d1d5db;font-size:0.95rem;line-height:1.75;margin-bottom:0.75rem;">${portfolioData.about.main}</p>
+                                <p style="color:#d1d5db;font-size:0.95rem;line-height:1.75;">${portfolioData.about.secondary}</p>
+                                <div style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;">
+                                    <span class="floating" style="font-size:1.8rem;animation-delay:0s" title="Estrategia">🎯</span>
+                                    <span class="floating" style="font-size:1.8rem;animation-delay:1s" title="Análisis">📊</span>
+                                    <span class="floating" style="font-size:1.8rem;animation-delay:2s" title="Crecimiento">🚀</span>
+                                    <span class="floating" style="font-size:1.8rem;animation-delay:0.5s" title="Tecnología">🤖</span>
+                                    <span class="floating" style="font-size:1.8rem;animation-delay:1.5s" title="Innovación">💡</span>
                                 </div>
                             </div>
-                            <div class="relative reveal-base reveal-right">
-                                <div class="absolute inset-0 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-cyan-500/30 rounded-3xl blur-3xl animate-pulse"></div>
-                                <div class="relative glass-card rounded-3xl p-8">
-                                    <div class="text-5xl mb-4">💻</div>
-                                    <h3 class="text-2xl font-bold text-white mb-4">${portfolioData.about.philosophy.title}</h3>
-                                    <p class="text-gray-300">${portfolioData.about.philosophy.description}</p>
+                            <div style="position:relative;" class="reveal-base reveal-right">
+                                <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(255,0,128,0.2),rgba(128,0,255,0.2),rgba(0,191,255,0.2));border-radius:1.5rem;filter:blur(20px);"></div>
+                                <div class="glass-card" style="position:relative;border-radius:1.5rem;padding:1.5rem;">
+                                    <div style="font-size:2.5rem;margin-bottom:0.75rem;">💻</div>
+                                    <h3 style="font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:0.75rem;">${portfolioData.about.philosophy.title}</h3>
+                                    <p style="color:#d1d5db;font-size:0.9rem;line-height:1.7;">${portfolioData.about.philosophy.description}</p>
                                 </div>
                             </div>
                         </div>
@@ -380,28 +386,28 @@
 
             // Skills
             const skillItems = portfolioData.skills.map((skill, index) => `
-                <div class="glass-card rounded-2xl p-6 hover-3d reveal-base reveal-rotate" style="transition-delay: ${index * 100}ms; animation-delay: ${Math.random() * 2}s">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center gap-3">
+                <div class="glass-card reveal-base reveal-rotate" style="border-radius:1rem;padding:1.25rem;transition-delay:${index * 80}ms;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
+                        <div style="display:flex;align-items:center;gap:0.6rem;">
                             ${skill.iconType === 'text'
-                    ? `<span class="text-3xl font-bold gradient-text">${skill.symbol}</span>`
-                    : `<span class="text-3xl">${skill.symbol}</span>`
+                    ? `<span style="font-size:1.4rem;font-weight:700;" class="gradient-text">${skill.symbol}</span>`
+                    : `<span style="font-size:1.4rem;">${skill.symbol}</span>`
                 }
-                            <span class="text-xl font-semibold text-white">${skill.name}</span>
+                            <span style="font-size:0.95rem;font-weight:600;color:#fff;">${skill.name}</span>
                         </div>
-                        <span class="text-2xl font-bold text-pink-400">${skill.percentage}%</span>
+                        <span style="font-size:1.1rem;font-weight:700;color:#f472b6;">${skill.percentage}%</span>
                     </div>
-                    <div class="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 rounded-full" style="width: ${skill.percentage}%"></div>
+                    <div style="width:100%;background:#1f2937;border-radius:9999px;height:8px;overflow:hidden;">
+                        <div style="height:100%;background:linear-gradient(to right,#ff0080,#8000ff,#00bfff);border-radius:9999px;width:${skill.percentage}%;"></div>
                     </div>
                 </div>
             `).join('');
 
             html += `
-                <section id="skills" class="min-h-screen flex items-center justify-center px-8 py-20">
-                    <div class="max-w-6xl mx-auto w-full">
-                        <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-up">Habilidades</h2>
-                        <div class="grid md:grid-cols-2 gap-8">${skillItems}</div>
+                <section id="skills" style="padding-top:4rem;padding-bottom:3rem;overflow:hidden;">
+                    <div style="max-width:72rem;margin:0 auto;padding:0 1rem;">
+                        <h2 style="font-size:clamp(2rem,8vw,3.5rem);font-weight:800;margin-bottom:2rem;text-align:center;" class="gradient-text reveal-base reveal-up">Habilidades</h2>
+                        <div style="display:grid;grid-template-columns:1fr;gap:1rem;">${skillItems}</div>
                     </div>
                 </section>
             `;
@@ -410,40 +416,40 @@
             const expItems = portfolioData.experience.map((item, index) => {
                 const animClass = index % 2 === 0 ? 'reveal-left' : 'reveal-right';
                 return `
-                <div class="flex flex-col md:flex-row gap-6 items-start glass-card rounded-2xl p-6 hover-3d reveal-base ${animClass}" style="animation-delay: ${Math.random() * 2}s">
-                    <div class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-xl font-bold text-lg min-w-[80px] text-center shadow-lg shadow-pink-500/50">
+                <div class="glass-card reveal-base ${animClass}" style="display:flex;flex-direction:column;gap:0.75rem;border-radius:1rem;padding:1.25rem;">
+                    <div style="display:inline-block;background:linear-gradient(135deg,#ff0080,#8000ff);color:#fff;padding:0.4rem 1rem;border-radius:0.75rem;font-weight:700;font-size:0.9rem;align-self:flex-start;box-shadow:0 4px 15px rgba(255,0,128,0.3);">
                         ${item.year}
                     </div>
-                    <p class="text-gray-300 text-lg leading-relaxed flex-1 pt-2">
+                    <p style="color:#d1d5db;font-size:0.9rem;line-height:1.7;">
                         ${item.description}
                     </p>
                 </div>
             `}).join('');
 
             html += `
-                <section id="experience" class="min-h-screen flex items-center justify-center px-8 py-20">
-                    <div class="max-w-6xl mx-auto w-full">
-                        <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-zoom">Experiencia y Logros</h2>
-                        <div class="space-y-6">${expItems}</div>
+                <section id="experience" style="padding-top:4rem;padding-bottom:3rem;overflow:hidden;">
+                    <div style="max-width:72rem;margin:0 auto;padding:0 1rem;">
+                        <h2 style="font-size:clamp(2rem,8vw,3.5rem);font-weight:800;margin-bottom:2rem;text-align:center;" class="gradient-text reveal-base reveal-zoom">Experiencia y Logros</h2>
+                        <div style="display:flex;flex-direction:column;gap:1rem;">${expItems}</div>
                     </div>
                 </section>
             `;
 
             // Projects
             const projectItems = portfolioData.projects.map((proj, index) => `
-                <div class="glass-card rounded-2xl overflow-hidden hover-3d reveal-base reveal-zoom" style="transition-delay: ${index * 100}ms; animation-delay: ${Math.random() * 2}s">
-                    <div class="h-48 overflow-hidden relative group">
-                        <img src="${proj.image}" alt="${proj.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="glass-card reveal-base reveal-zoom" style="border-radius:1rem;overflow:hidden;transition-delay:${index * 80}ms;">
+                    <div style="height:10rem;overflow:hidden;position:relative;">
+                        <img src="${proj.image}" alt="${proj.title}" style="width:100%;height:100%;object-fit:cover;">
+                        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);"></div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-white mb-2">${proj.title}</h3>
-                        <p class="text-gray-400 mb-4">${proj.desc}</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            ${proj.tags.map(tag => `<span class="px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full text-sm">${tag}</span>`).join('')}
+                    <div style="padding:1rem;">
+                        <h3 style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:0.4rem;">${proj.title}</h3>
+                        <p style="color:#9ca3af;font-size:0.85rem;margin-bottom:0.75rem;line-height:1.5;">${proj.desc}</p>
+                        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem;">
+                            ${proj.tags.map(tag => `<span style="padding:0.2rem 0.6rem;background:rgba(255,0,128,0.15);color:#f9a8d4;border-radius:9999px;font-size:0.75rem;">${tag}</span>`).join('')}
                         </div>
                         ${proj.link ? `
-                            <a href="${proj.link}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 transition-colors font-medium">
+                            <a href="${proj.link}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.35rem;color:#f472b6;font-size:0.85rem;font-weight:600;text-decoration:none;">
                                 🔗 Ver referencia
                             </a>
                         ` : ''}
@@ -452,10 +458,10 @@
             `).join('');
 
             html += `
-                <section id="projects" class="min-h-screen flex items-center justify-center px-8 py-20">
-                    <div class="max-w-6xl mx-auto w-full">
-                        <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-up">Proyectos Destacados</h2>
-                        <div class="grid md:grid-cols-3 gap-8">${projectItems}</div>
+                <section id="projects" style="padding-top:4rem;padding-bottom:3rem;overflow:hidden;">
+                    <div style="max-width:72rem;margin:0 auto;padding:0 1rem;">
+                        <h2 style="font-size:clamp(2rem,8vw,3.5rem);font-weight:800;margin-bottom:2rem;text-align:center;" class="gradient-text reveal-base reveal-up">Proyectos Destacados</h2>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:1rem;">${projectItems}</div>
                     </div>
                 </section>
             `;
@@ -487,9 +493,9 @@
             }).join('');
 
             const hobbiesItems = portfolioData.contact.hobbies.map(hobby => `
-                <div class="flex items-center gap-3 p-4 bg-white/5 rounded-xl border border-white/5 hover:border-cyan-500/50 transition-all">
-                    <span class="text-2xl">${hobby.icon}</span>
-                    <span class="text-gray-300">${hobby.name}</span>
+                <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:rgba(255,255,255,0.05);border-radius:0.75rem;border:1px solid rgba(255,255,255,0.05);">
+                    <span style="font-size:1.3rem;">${hobby.icon}</span>
+                    <span style="color:#d1d5db;font-size:0.9rem;">${hobby.name}</span>
                 </div>
             `).join('');
 
@@ -500,23 +506,26 @@
 
                 for (let i = 0; i < 5; i++) {
                     if (i < fullStars) {
-                        starsHtml += '<span class="text-yellow-400">★</span>';
+                        starsHtml += '<span style="color:#facc15;">★</span>';
                     } else if (i === fullStars && hasHalfStar) {
-                        starsHtml += '<span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-gray-600" style="-webkit-background-clip: text;">★</span>';
+                        starsHtml += '<span style="color:#ca8a04;">★</span>';
                     } else {
-                        starsHtml += '<span class="text-gray-600">★</span>';
+                        starsHtml += '<span style="color:#374151;">★</span>';
                     }
                 }
 
+                // Determine border color based on lang.border
+                const borderColor = lang.border.includes('pink') ? '#ec4899' : '#a855f7';
+
                 return `
-                <div class="flex items-center gap-4 bg-white/5 p-3 rounded-xl border border-white/5 hover:border-${lang.border}/50 transition-all hover:scale-105 w-full">
-                    <div class="w-12 h-12 rounded-full border-2 border-${lang.border} flex items-center justify-center text-2xl bg-black/20 shrink-0">${lang.flag}</div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-center mb-1">
-                            <h5 class="text-white font-bold truncate mr-2">${lang.name}</h5>
-                            <span class="text-gray-400 text-sm">${lang.level}</span>
+                <div style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,255,255,0.05);padding:0.75rem;border-radius:0.75rem;border:1px solid rgba(255,255,255,0.05);transition:all 0.2s;">
+                    <div style="width:2.5rem;height:2.5rem;border-radius:9999px;border:2px solid ${borderColor};display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:rgba(0,0,0,0.2);flex-shrink:0;">${lang.flag}</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.2rem;">
+                            <h5 style="color:#fff;font-weight:700;font-size:0.95rem;">${lang.name}</h5>
+                            <span style="color:#9ca3af;font-size:0.75rem;">${lang.level}</span>
                         </div>
-                        <div class="text-xl flex tracking-widest leading-none">
+                        <div style="font-size:1.1rem;letter-spacing:0.1em;">
                              ${starsHtml}
                         </div>
                     </div>
@@ -524,25 +533,25 @@
             `}).join('');
 
             html += `
-                <section id="contact" class="min-h-screen flex items-center justify-center px-8 py-20">
-                    <div class="max-w-6xl mx-auto w-full">
-                        <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-up">Contacto</h2>
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div class="glass-card rounded-2xl p-6 reveal-base reveal-left" style="animation-delay: ${Math.random() * 2}s">
-                                <h3 class="text-2xl font-bold text-white mb-6">Información de Contacto</h3>
-                                <div class="space-y-4">${contactInfos}</div>
-                                <div class="mt-8 text-center">
+                <section id="contact" style="padding-top:4rem;padding-bottom:4rem;overflow:hidden;">
+                    <div style="max-width:72rem;margin:0 auto;padding:0 1rem;">
+                        <h2 style="font-size:clamp(2rem,8vw,3.5rem);font-weight:800;margin-bottom:2rem;text-align:center;" class="gradient-text reveal-base reveal-up">Contacto</h2>
+                        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+                            <div class="glass-card reveal-base reveal-left" style="border-radius:1.25rem;padding:1.25rem;">
+                                <h3 style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:1rem;">Información de Contacto</h3>
+                                <div style="display:flex;flex-direction:column;gap:0.75rem;">${contactInfos}</div>
+                                <div style="margin-top:1.5rem;display:flex;justify-content:center;">
                                     <a href="contacto.vcf" download="contacto.vcf" class="save-contact-btn" id="btn-guardar-contacto">
                                         💾 Guardar Contacto
                                     </a>
                                 </div>
                             </div>
-                            <div class="glass-card rounded-2xl p-6 reveal-base reveal-right" style="transition-delay: 200ms; animation-delay: ${Math.random() * 2}s">
-                                <h3 class="text-2xl font-bold text-white mb-6">Pasatiempos</h3>
-                                <div class="grid grid-cols-2 gap-4 mb-8">${hobbiesItems}</div>
+                            <div class="glass-card reveal-base reveal-right" style="border-radius:1.25rem;padding:1.25rem;">
+                                <h3 style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:1rem;">Pasatiempos</h3>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.25rem;">${hobbiesItems}</div>
                                 <div>
-                                    <h4 class="text-xl font-bold text-white mb-4">Idiomas</h4>
-                                    <div class="flex flex-col gap-4">${langItems}</div>
+                                    <h4 style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.75rem;">Idiomas</h4>
+                                    <div style="display:flex;flex-direction:column;gap:0.75rem;">${langItems}</div>
                                 </div>
                             </div>
                         </div>

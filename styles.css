@@ -1,191 +1,262 @@
-* {
+/* =====================================================
+   RESET & BOX MODEL — Garantizar que NADA desborde
+   ===================================================== */
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     -webkit-tap-highlight-color: transparent;
 }
 
-html,
+/* =====================================================
+   HTML / BODY — Control total del ancho
+   ===================================================== */
+html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
 body {
     width: 100%;
     max-width: 100%;
-    overflow-x: clip !important;
+    overflow-x: hidden;
     position: relative;
-    background-color: black;
+    background-color: #000;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     overscroll-behavior-x: none;
     touch-action: pan-y;
+    /* Prevenir scrollbar derecho que genera barra negra */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,0,128,0.3) transparent;
 }
 
-/* Contenedor wrapper para asegurar que nada escape horizontalmente */
-#app-wrapper {
+/* =====================================================
+   CONTENEDORES PRINCIPALES
+   ===================================================== */
+#app-wrapper,
+#app-content {
     width: 100%;
     max-width: 100%;
-    overflow-x: clip !important;
+    overflow-x: hidden;
     position: relative;
-    display: block;
 }
 
-/* Forzar que las secciones no desborden */
+/* =====================================================
+   SECCIONES — Sin overflow lateral
+   ===================================================== */
 section {
-    overflow: hidden;
     width: 100%;
     max-width: 100%;
+    overflow: hidden;
+    /* Padding responsive: pequeño en móvil, grande en desktop */
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
-/* Mejorar respuesta táctil */
-button, a, .nav-btn, .save-contact-btn {
+@media (min-width: 640px) {
+    section {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+/* =====================================================
+   NAV — Evitar scroll horizontal en la barra de nav
+   ===================================================== */
+nav {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+#nav-container {
+    display: flex;
+    gap: 0.15rem;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 9999px;
+    padding: 0.3rem 0.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    overflow: hidden !important;
+    flex-wrap: nowrap;
+    /* Strict width limit: 6 buttons × ~52px = ~312px — fits in 390px */
+    max-width: min(360px, calc(100vw - 1rem));
+    margin: 0 auto;
+}
+
+/* Botones del nav ultra-compactos en móvil */
+.nav-btn {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    /* En móvil: muy pequeño para que quepan 6 íonos */
+    padding: 0.45rem 0.55rem;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    color: #9ca3af;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    white-space: nowrap;
+    touch-action: manipulation;
+    min-width: 0;
+}
+
+@media (min-width: 640px) {
+    .nav-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        gap: 0.5rem;
+    }
+}
+
+.nav-btn:hover {
+    color: #fff;
+}
+
+/* Ocultar etiqueta de texto en móvil, mostrar en desktop */
+.nav-label {
+    display: none;
+}
+
+@media (min-width: 640px) {
+    .nav-label {
+        display: inline;
+        font-size: 0.85rem;
+    }
+}
+
+/* =====================================================
+   INTERACTIVIDAD TÁCTIL
+   ===================================================== */
+button, a, .save-contact-btn, .nav-btn {
     touch-action: manipulation;
     cursor: pointer;
 }
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
+/* =====================================================
+   ANIMACIONES — Reducir movimiento horizontal que causa overflow
+   ===================================================== */
 @keyframes float {
-    0%,
-    100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-12px); }
 }
 
 @keyframes floatReverse {
-    0%,
-    100% {
-        transform: translateY(0px) rotate(0deg);
-    }
-    50% {
-        transform: translateY(20px) rotate(-5deg);
-    }
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50%       { transform: translateY(12px) rotate(-3deg); }
 }
 
 @keyframes pulse-glow {
-    0%,
-    100% {
-        opacity: 0.5;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.1);
-    }
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.1); }
 }
 
 @keyframes gradient-shift {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
+/* Partícula — movimiento solo vertical para evitar overflow */
 @keyframes particle-float {
-    0% {
-        transform: translateY(0) translateX(0) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-100vh) translateX(100px) rotate(360deg);
-        opacity: 0;
-    }
+    0%   { transform: translateY(0)      rotate(0deg);   opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(-100vh) rotate(180deg); opacity: 0; }
 }
 
-.floating {
-    animation: float 6s ease-in-out infinite;
+@keyframes gentle-float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
 }
 
-.floating-reverse {
-    animation: floatReverse 6s ease-in-out infinite;
+@keyframes fadeInPage {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes shimmer {
+    0%   { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(200%) rotate(45deg); }
+}
+
+/* =====================================================
+   CLASES DE UTILIDAD ANIMACIÓN
+   ===================================================== */
+.floating         { animation: float 6s ease-in-out infinite; }
+.floating-reverse { animation: floatReverse 6s ease-in-out infinite; }
+
+/* =====================================================
+   GLASS CARD
+   ===================================================== */
 .glass-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    animation: gentle-float 6s ease-in-out infinite;
+    will-change: transform;
 }
 
+/* =====================================================
+   PARTÍCULAS
+   ===================================================== */
 .particle {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
     animation: particle-float 15s linear infinite;
+    /* Contener partículas dentro de su contenedor */
+    max-width: 8px;
+    max-height: 8px;
 }
 
+/* =====================================================
+   HOVER 3D (solo desktop)
+   ===================================================== */
 .hover-3d {
     transition: transform 0.3s ease;
     transform-style: preserve-3d;
 }
 
-/* Base Reveal Class */
+/* =====================================================
+   SCROLL REVEAL — Movimientos pequeños para evitar overflow
+   ===================================================== */
 .reveal-base {
     transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
     opacity: 0;
     will-change: transform, opacity;
 }
 
-/* Slide Up (Default) */
-.reveal-up {
-    transform: translateY(50px);
-}
+/* En móvil TODOS los reveals son verticales */
+.reveal-up    { transform: translateY(40px); }
+.reveal-left  { transform: translateY(40px); }
+.reveal-right { transform: translateY(40px); }
+.reveal-zoom  { transform: scale(0.85); }
+.reveal-rotate{ transform: rotate(-3deg) scale(0.9); }
 
-.reveal-up.active {
+.reveal-up.active,
+.reveal-left.active,
+.reveal-right.active {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* Slide From Left - Reducido para móvil */
-.reveal-left {
-    transform: translateX(-20px);
-}
-
-/* Slide From Right - Reducido para móvil */
-.reveal-right {
-    transform: translateX(20px);
-}
-
-@media (max-width: 768px) {
-    .reveal-left, .reveal-right {
-        transform: translateY(20px) !important;
-        opacity: 0;
-    }
-    .reveal-left.active, .reveal-right.active {
-        transform: translateY(0) !important;
-        opacity: 1;
-    }
-}
-
-.reveal-left.active, .reveal-right.active {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-/* Zoom In */
-.reveal-zoom {
-    transform: scale(0.8);
 }
 
 .reveal-zoom.active {
     opacity: 1;
     transform: scale(1);
-}
-
-/* Rotate In */
-.reveal-rotate {
-    transform: rotate(-5deg) scale(0.9);
 }
 
 .reveal-rotate.active {
@@ -198,27 +269,28 @@ body {
     transform: translateY(0) scale(1);
 }
 
-@keyframes gentle-float {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
+/* En desktop, reveal-left y reveal-right vuelven a ser laterales */
+@media (min-width: 768px) {
+    .reveal-left  { transform: translateX(-30px); }
+    .reveal-right { transform: translateX(30px); }
+
+    .reveal-left.active,
+    .reveal-right.active {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
-/* Continuous float for all cards */
-.glass-card {
-    animation: gentle-float 6s ease-in-out infinite;
-    will-change: transform;
-}
-
+/* =====================================================
+   GRADIENTES Y TEXTOS
+   ===================================================== */
 .gradient-text {
     background: linear-gradient(135deg, #ff0080, #8000ff, #00bfff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    /* Evitar que el texto corte su propia bounding box */
+    padding-bottom: 0.05em;
 }
 
 .gradient-bg {
@@ -227,36 +299,25 @@ body {
     animation: gradient-shift 15s ease infinite;
 }
 
-/* Animación de entrada suave */
-@keyframes fadeInPage {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+/* =====================================================
+   CARGA DE PÁGINA
+   ===================================================== */
+.page-loading { opacity: 0; }
+.page-loaded  { animation: fadeInPage 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
 
-.page-loading {
-    opacity: 0;
-}
-
-.page-loaded {
-    animation: fadeInPage 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-/* Botón Guardar Contacto */
+/* =====================================================
+   BOTÓN GUARDAR CONTACTO
+   ===================================================== */
 .save-contact-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.8rem;
     background: linear-gradient(135deg, #ff0080, #8000ff);
-    color: white;
+    color: #fff;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1rem;
     border-radius: 9999px;
     border: none;
     cursor: pointer;
@@ -265,6 +326,8 @@ body {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    width: 100%;
+    max-width: 260px;
 }
 
 .save-contact-btn:hover {
@@ -279,24 +342,17 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
     transform: rotate(45deg);
     animation: shimmer 3s infinite;
 }
 
-@keyframes shimmer {
-    0% {
-        transform: translateX(-100%) rotate(45deg);
-    }
-    100% {
-        transform: translateX(100%) rotate(45deg);
-    }
-}
-
-/* Feedback visual para el primer toque */
+/* =====================================================
+   SELECCIÓN DOBLE-TOQUE
+   ===================================================== */
 .is-selected {
     outline: 3px solid rgba(255, 255, 255, 0.5);
-    outline-offset: 4px;
+    outline-offset: 3px;
     box-shadow: 0 0 20px rgba(255, 0, 128, 0.8) !important;
 }
 
@@ -304,4 +360,66 @@ body {
     .is-selected {
         transform: scale(1.05) !important;
     }
+}
+
+/* =====================================================
+   HERO SECTION — Responsive
+   ===================================================== */
+#hero {
+    min-height: 100svh; /* svh = small viewport height, correcto para móvil */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5rem;   /* espacio para el nav fijo */
+    padding-bottom: 2rem;
+    overflow: hidden;
+}
+
+/* Título gigante — limitar en móvil */
+#hero h1 {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+}
+
+/* =====================================================
+   SECCIONES GENERALES — Responsive spacing
+   ===================================================== */
+.section-inner {
+    width: 100%;
+    max-width: 72rem; /* max-w-6xl */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* =====================================================
+   IMÁGENES — Evitar que rompan el layout
+   ===================================================== */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+footer {
+    overflow: hidden;
+    width: 100%;
+}
+
+/* =====================================================
+   SCROLLBAR STYLING (webkit)
+   ===================================================== */
+::-webkit-scrollbar {
+    width: 4px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 0, 128, 0.3);
+    border-radius: 4px;
 }
