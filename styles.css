@@ -1,0 +1,307 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+    position: relative;
+    background-color: black;
+    overscroll-behavior-x: none;
+    touch-action: pan-y;
+}
+
+/* Contenedor wrapper para asegurar que nada escape horizontalmente */
+#app-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+    position: relative;
+    display: block;
+}
+
+/* Forzar que las secciones no desborden */
+section {
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Mejorar respuesta táctil */
+button, a, .nav-btn, .save-contact-btn {
+    touch-action: manipulation;
+    cursor: pointer;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes floatReverse {
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(20px) rotate(-5deg);
+    }
+}
+
+@keyframes pulse-glow {
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes particle-float {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-reverse {
+    animation: floatReverse 6s ease-in-out infinite;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particle-float 15s linear infinite;
+}
+
+.hover-3d {
+    transition: transform 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+/* Base Reveal Class */
+.reveal-base {
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+/* Slide Up (Default) */
+.reveal-up {
+    transform: translateY(50px);
+}
+
+.reveal-up.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Slide From Left - Reducido para móvil */
+.reveal-left {
+    transform: translateX(-20px);
+}
+
+/* Slide From Right - Reducido para móvil */
+.reveal-right {
+    transform: translateX(20px);
+}
+
+@media (max-width: 768px) {
+    .reveal-left, .reveal-right {
+        transform: translateY(20px) !important;
+        opacity: 0;
+    }
+    .reveal-left.active, .reveal-right.active {
+        transform: translateY(0) !important;
+        opacity: 1;
+    }
+}
+
+.reveal-left.active, .reveal-right.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Zoom In */
+.reveal-zoom {
+    transform: scale(0.8);
+}
+
+.reveal-zoom.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Rotate In */
+.reveal-rotate {
+    transform: rotate(-5deg) scale(0.9);
+}
+
+.reveal-rotate.active {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+@keyframes gentle-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Continuous float for all cards */
+.glass-card {
+    animation: gentle-float 6s ease-in-out infinite;
+    will-change: transform;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #ff0080, #8000ff, #00bfff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.gradient-bg {
+    background: linear-gradient(-45deg, #ff0080, #8000ff, #00bfff, #ff0080);
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+}
+
+/* Animación de entrada suave */
+@keyframes fadeInPage {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-loading {
+    opacity: 0;
+}
+
+.page-loaded {
+    animation: fadeInPage 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Botón Guardar Contacto */
+.save-contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #ff0080, #8000ff);
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 10px 40px rgba(255, 0, 128, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.save-contact-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 50px rgba(255, 0, 128, 0.6);
+}
+
+.save-contact-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transform: rotate(45deg);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) rotate(45deg);
+    }
+}
+
+/* Feedback visual para el primer toque */
+.is-selected {
+    outline: 3px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 4px;
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.8) !important;
+}
+
+@media (min-width: 768px) {
+    .is-selected {
+        transform: scale(1.05) !important;
+    }
+}

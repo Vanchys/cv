@@ -1,0 +1,742 @@
+// --- DATOS DEL PORTAFOLIO (EDITA AQUÍ) ---
+        const portfolioData = {
+            personal: {
+                name: "IVAN APOLINAR",
+                initials: "IA",
+                photo: "./Ivan  img.jpeg",
+                title: "Analista Data MBA-Level",
+                age_location: "Tehuacán, Puebla, México",
+                bio: "Estratega operativo y analista de datos aplicado a negocios, con amplia experiencia en creación, estructuración y escalamiento de proyectos reales en transporte, servicios, comercio y atención al cliente.",
+                email: "vanchysz1@gmail.com",
+                cv_link: "./Ivan Apolinar CV.pdf"
+            },
+            sections: [
+                { id: 'hero', icon: '🏠', label: 'Inicio' },
+                { id: 'about', icon: '👤', label: 'Sobre Mí' },
+                { id: 'skills', icon: '⭐', label: 'Habilidades' },
+                { id: 'experience', icon: '💼', label: 'Experiencia' },
+                { id: 'projects', icon: '📁', label: 'Proyectos' },
+                { id: 'contact', icon: '📧', label: 'Contacto' }
+            ],
+            about: {
+                main: "Me especializo en convertir ideas en operaciones funcionales: estructuro procesos, asigno roles, implemento sistemas, analizo información y diseño estrategias que permiten que los negocios operen de forma sostenible y semi-automatizada.",
+                secondary: "Soy una persona tranquila, empática y analítica. Mi experiencia en trato directo con clientes y equipos de trabajo me ha permitido desarrollar escucha activa genuina y comprensión de problemas cotidianos, buscando siempre soluciones claras y efectivas.",
+                philosophy: {
+                    title: "Filosofía de Trabajo",
+                    description: "Aportar valor primero, estructurar correctamente y permitir que el tiempo y la constancia multipliquen los resultados en personas, proyectos y relaciones."
+                }
+            },
+            experience: [
+                { year: "9 Años", description: "Socio Fundador de Smart Transport. Operación general, logística, estructura de rutas, atención a clientes y toma de decisiones estratégicas." },
+                { year: "6 Años", description: "Fundador de Operadora Turística Tehuacán – Oaxaca. Socio Fundador de ruta con escala en Nochixtlan." },
+                { year: "Actual", description: "Propietario de Tienda de Abarrotes. Administración diaria, ventas, control de personal y operación." },
+                { year: "Previo", description: "Experiencia operativa en ventas y distribución en empresas como Pepsico, Alpura y Big Cola." }
+            ],
+            skills: [
+                { name: "Análisis de Datos", symbol: "📊", percentage: 90, iconType: "emoji" },
+                { name: "Op. de Negocios", symbol: "⚙️", percentage: 85, iconType: "emoji" },
+                { name: "Inteligencia Artificial", symbol: "🤖", percentage: 80, iconType: "emoji" },
+                { name: "Marketing Digital", symbol: "📈", percentage: 75, iconType: "emoji" },
+                { name: "Excel Avanzado", symbol: "Xls", percentage: 70, iconType: "text" },
+                { name: "Desarrollo No-Code", symbol: "💻", percentage: 65, iconType: "emoji" }
+            ],
+            projects: [
+                {
+                    title: "Automatización con IA",
+                    desc: "Creación de Scripts para transformar datos y automatizar procesos.",
+                    tags: ["AI", "Claude API", "Python"],
+                    image: "./cla.jpeg"
+                },
+                {
+                    title: "Cyber Punto Com",
+                    desc: "Cadena local de cyber cafés pcs y xbox. Logística, control y manejo de redes.",
+                    tags: ["Business", "Technology", "Management"],
+                    gradient: "from-blue-600 to-cyan-400",
+                    image: "./ptc.jpg"
+                },
+                {
+                    title: "Krocks Buffet",
+                    desc: "El único buffet de comida mexicana en Tehuacán que operaba toda la semana.",
+                    tags: ["Restaurant", "Management", "Service"],
+                    gradient: "from-orange-500 to-red-500",
+                    image: "./kb.jpg"
+                },
+                {
+                    title: "Luxor Travel",
+                    desc: "Modelo de negocio de inversión y escalable para Transporte Federal.",
+                    tags: ["Scalability", "Business Model", "Investment"],
+                    image: "./lux.jpg",
+                    link: "https://www.facebook.com/p/LUXOR-Travel-61559858225526/"
+                },
+                {
+                    title: "Smart Transports",
+                    desc: "Agencia de viajes líder entre: Tehuacán, Cuacnopalan, Puebla, México.",
+                    tags: ["Transport", "Logistics", "Strategy"],
+                    gradient: "from-green-500 to-emerald-700",
+                    image: "./smt.jpg",
+                    link: "https://www.smarttransports.mx/"
+                },
+                {
+                    title: "Elegance Travel",
+                    desc: "Transporte Ejecutivo Local.",
+                    tags: ["Transport", "Strategy", "Service"],
+                    image: "./nuv.jpg",
+                    link: "https://elegancetravel.github.io/1/"
+                }
+            ],
+            education: [],
+            contact: {
+                info: [
+                    { icon: "📍", text: "Tehuacán, Puebla, México", link: "https://www.google.com/maps/place/Tehuac%C3%A1n,+Puebla" },
+                    { icon: "📱", text: "238 238 2982", link: "https://wa.me/522382382982" },
+                    { icon: "✉️", text: "vanchysz1@gmail.com", link: "mailto:vanchysz1@gmail.com" },
+                    { icon: "f", text: "Perfil Facebook", link: "https://www.facebook.com/share/17ivmizthS/" }
+                ],
+                hobbies: [
+                    { icon: "🏈", name: "Fútbol Americano" },
+                    { icon: "🥊", name: "Boxeo" },
+                    { icon: "🎮", name: "Videojuegos" },
+                    { icon: "✈️", name: "Viajes" }
+                ],
+                languages: [
+                    { flag: "🇲🇽", border: "pink-500", name: "Español", level: "Nativo (100%)", percent: 100, stars: 5 },
+                    { flag: "🇺🇸", border: "purple-500", name: "Inglés", level: "Básico (40%)", percent: 40, stars: 2.5 }
+                ]
+            }
+        };
+
+        // --- RENDERIZADO ---
+
+        function renderNav() {
+            const container = document.getElementById('nav-container');
+            container.innerHTML = portfolioData.sections.map(section => `
+                <button onclick="scrollToSection('${section.id}')" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 text-gray-400 hover:text-white shrink-0">
+                    <span>${section.icon}</span> <span class="hidden md:inline">${section.label}</span>
+                </button>
+            `).join('');
+        }
+
+
+        function init3DHover() {
+            if (window.innerWidth < 768) return; 
+            document.querySelectorAll('.hover-3d').forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
+                });
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = '';
+                });
+            });
+        }
+
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    } else {
+                        // Remove active class to reset animation when out of view
+                        entry.target.classList.remove('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal-base').forEach(el => observer.observe(el));
+        }
+
+        // Initialize
+        renderNav();
+        // renderContent is called later in its final version
+        document.getElementById('footer-text').innerText = `Diseñado y desarrollado por ${portfolioData.personal.name}`;
+        document.getElementById('current-year').innerText = new Date().getFullYear();
+
+
+        // Animación de fondo con mouse
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+            updateBackground();
+        });
+
+        function updateBackground() {
+            const bg = document.getElementById('animated-bg');
+            bg.style.background = `
+                radial-gradient(circle at ${50 + mouseX * 20}% ${50 + mouseY * 20}%, #ff0080 0%, transparent 50%),
+                radial-gradient(circle at ${30 - mouseX * 15}% ${70 - mouseY * 15}%, #8000ff 0%, transparent 50%),
+                radial-gradient(circle at ${70 + mouseX * 10}% ${30 + mouseY * 10}%, #00bfff 0%, transparent 50%)
+            `;
+        }
+
+        // Partículas
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 4 + 2 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.background = 'white';
+            particle.style.opacity = Math.random() * 0.5 + 0.2;
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Barra de progreso
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrolled / maxScroll) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+        });
+
+        // Navegación suave
+        window.scrollToSection = function (id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            // Actualizar botones activos
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-gradient-to-r', 'from-pink-500', 'via-purple-500', 'to-cyan-500', 'text-white');
+                btn.classList.add('text-gray-400');
+            });
+        }
+
+        updateBackground();
+
+        // --- AUDIO Y SCROLL INTERACTIVO ---
+
+        // Elementos de audio
+        const bgMusic = new Audio('interestelar.mp3');
+        bgMusic.loop = true;
+        bgMusic.volume = 0.8; // 80% Volumen
+
+        // Sonidos invertidos: Down usa 2.mp3, Up usa 1.mp3
+        const scrollDownSound = new Audio('2.mp3');
+        const scrollUpSound = new Audio('1.mp3');
+        scrollDownSound.volume = 0.5; // 50% Volumen
+        scrollUpSound.volume = 0.5;   // 50% Volumen
+
+        // Manejo de música de fondo (Autoplay policy fix)
+        let musicStarted = false;
+
+        function startMusic() {
+            if (!musicStarted) {
+                bgMusic.play().then(() => {
+                    musicStarted = true;
+                    console.log("Música de fondo iniciada");
+                }).catch(e => {
+                    console.log("Autoplay bloqueado, esperando interacción");
+                });
+            }
+        }
+
+        // Intentar iniciar música con cualquier interacción
+        document.body.addEventListener('click', startMusic, { once: true });
+        document.body.addEventListener('scroll', startMusic, { once: true });
+        window.addEventListener('scroll', startMusic, { once: true });
+
+
+        // Control de Visibilidad del Texto Bio (Mantenemos scroll simple para esto)
+        window.addEventListener('scroll', () => {
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Visibilidad del Texto Bio
+            const bioText = document.getElementById('bio-text');
+            if (bioText) {
+                const viewportHeight = window.innerHeight;
+                // Si el scroll supera la mitad de la altura de la ventana
+                if (st > viewportHeight / 2) {
+                    bioText.classList.remove('opacity-0', 'translate-y-10');
+                    bioText.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    bioText.classList.add('opacity-0', 'translate-y-10');
+                    bioText.classList.remove('opacity-100', 'translate-y-0');
+                }
+            }
+        }, false);
+
+
+        // Control de Sonidos por Secciones (Intersection Observer)
+        // Solo suena una vez al cambiar de sección
+
+        // Esperar a que el contenido se renderice antes de buscar secciones
+        setTimeout(() => {
+            const sections = document.querySelectorAll('section');
+            let currentSectionIndex = 0;
+
+            const audioSectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const newIndex = Array.from(sections).indexOf(entry.target);
+
+                        // Solo sonar si cambiamos de sección (ignorando la carga inicial si es el top)
+                        if (newIndex !== -1 && newIndex !== currentSectionIndex) {
+
+                            if (newIndex > currentSectionIndex) {
+                                // Bajando
+                                scrollDownSound.currentTime = 0;
+                                scrollDownSound.play().catch(() => { });
+                            } else if (newIndex < currentSectionIndex) {
+                                // Subiendo
+                                scrollUpSound.currentTime = 0;
+                                scrollUpSound.play().catch(() => { });
+                            }
+
+                            currentSectionIndex = newIndex;
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.3 // Detectar cuando el 30% de la sección es visible
+            });
+
+            sections.forEach(section => audioSectionObserver.observe(section));
+        }, 100);
+
+
+        // --- RENDERIZADO FINAL ---
+        function renderContent() {
+            const main = document.getElementById('main-content');
+            let html = '';
+
+            // Hero
+            html += `
+                <section id="hero" class="min-h-screen flex items-center justify-center px-8 relative">
+                    <div class="max-w-6xl mx-auto text-center reveal-base reveal-zoom">
+                        <div class="relative inline-block mb-8 mt-40 floating max-w-full">
+                            <div class="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 rounded-full blur-3xl opacity-50 animate-pulse"></div>
+                            <div class="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-to-r from-pink-500 to-cyan-500 p-1 mx-auto">
+                                <div class="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
+                                    ${portfolioData.personal.photo ?
+                    `<img src="${portfolioData.personal.photo}" alt="${portfolioData.personal.name}" class="w-full h-full object-cover">` :
+                    `<div class="text-8xl font-bold gradient-text">${portfolioData.personal.initials}</div>`
+                }
+                                </div>
+                            </div>
+                        </div>
+                        <h1 class="text-5xl md:text-7xl lg:text-9xl font-bold mb-6 gradient-text animate-pulse break-words px-4">
+                            ${portfolioData.personal.name}
+                        </h1>
+                        <p class="text-3xl md:text-4xl text-purple-300 mb-2 font-light">
+                            ${portfolioData.personal.title}
+                        </p>
+                        <p class="text-lg text-gray-400 mb-4">
+                            ${portfolioData.personal.age_location}
+                        </p>
+                        <!-- MODIFICADO: ID agregado y clases de ocultamiento inicial -->
+                        <p id="bio-text" class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto transition-all duration-1000 opacity-0 translate-y-10">
+                            ${portfolioData.personal.bio}
+                        </p>
+                        <div class="flex flex-wrap gap-4 justify-center">
+                            <a href="#contact" class="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 rounded-full text-white font-semibold shadow-2xl shadow-pink-500/50 hover:scale-105 transition-transform">
+                                📧 Contáctame
+                            </a>
+                            ${portfolioData.personal.cv_link ? `
+                            <button onclick="showCVModal()" class="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 rounded-full text-white font-semibold shadow-2xl shadow-pink-500/50 hover:scale-105 transition-transform cursor-pointer">
+                                🧿 Visualizar CV
+                            </button>` : ''}
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            // About
+            html += `
+                <section id="about" class="min-h-screen flex items-center justify-center px-8 py-20">
+                    <div class="max-w-6xl mx-auto">
+                        <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-up">Sobre Mí</h2>
+                        <div class="grid md:grid-cols-2 gap-12 items-center">
+                            <div class="glass-card rounded-3xl p-8 hover-3d reveal-base reveal-left">
+                                <p class="text-gray-300 text-lg leading-relaxed mb-4">${portfolioData.about.main}</p>
+                                <p class="text-gray-300 text-lg leading-relaxed mb-6">${portfolioData.about.secondary}</p>
+                                <div class="flex gap-6 mt-8">
+                                    <div class="text-4xl floating cursor-default hover:scale-125 transition-transform" style="animation-delay: 0s" title="Estrategia">🎯</div>
+                                    <div class="text-4xl floating cursor-default hover:scale-125 transition-transform" style="animation-delay: 1s" title="Análisis">📊</div>
+                                    <div class="text-4xl floating cursor-default hover:scale-125 transition-transform" style="animation-delay: 2s" title="Crecimiento">🚀</div>
+                                    <div class="text-4xl floating cursor-default hover:scale-125 transition-transform" style="animation-delay: 0.5s" title="Tecnología">🤖</div>
+                                    <div class="text-4xl floating cursor-default hover:scale-125 transition-transform" style="animation-delay: 1.5s" title="Innovación">💡</div>
+                                </div>
+                            </div>
+                            <div class="relative reveal-base reveal-right">
+                                <div class="absolute inset-0 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-cyan-500/30 rounded-3xl blur-3xl animate-pulse"></div>
+                                <div class="relative glass-card rounded-3xl p-8">
+                                    <div class="text-5xl mb-4">💻</div>
+                                    <h3 class="text-2xl font-bold text-white mb-4">${portfolioData.about.philosophy.title}</h3>
+                                    <p class="text-gray-300">${portfolioData.about.philosophy.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            // Skills
+            const skillItems = portfolioData.skills.map((skill, index) => `
+                <div class="glass-card rounded-2xl p-6 hover-3d reveal-base reveal-rotate" style="transition-delay: ${index * 100}ms; animation-delay: ${Math.random() * 2}s">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            ${skill.iconType === 'text'
+                    ? `<span class="text-3xl font-bold gradient-text">${skill.symbol}</span>`
+                    : `<span class="text-3xl">${skill.symbol}</span>`
+                }
+                            <span class="text-xl font-semibold text-white">${skill.name}</span>
+                        </div>
+                        <span class="text-2xl font-bold text-pink-400">${skill.percentage}%</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 rounded-full" style="width: ${skill.percentage}%"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            html += `
+                <section id="skills" class="min-h-screen flex items-center justify-center px-8 py-20">
+                    <div class="max-w-6xl mx-auto w-full">
+                        <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-up">Habilidades</h2>
+                        <div class="grid md:grid-cols-2 gap-8">${skillItems}</div>
+                    </div>
+                </section>
+            `;
+
+            // Experience
+            const expItems = portfolioData.experience.map((item, index) => {
+                const animClass = index % 2 === 0 ? 'reveal-left' : 'reveal-right';
+                return `
+                <div class="flex flex-col md:flex-row gap-6 items-start glass-card rounded-2xl p-6 hover-3d reveal-base ${animClass}" style="animation-delay: ${Math.random() * 2}s">
+                    <div class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-xl font-bold text-lg min-w-[80px] text-center shadow-lg shadow-pink-500/50">
+                        ${item.year}
+                    </div>
+                    <p class="text-gray-300 text-lg leading-relaxed flex-1 pt-2">
+                        ${item.description}
+                    </p>
+                </div>
+            `}).join('');
+
+            html += `
+                <section id="experience" class="min-h-screen flex items-center justify-center px-8 py-20">
+                    <div class="max-w-6xl mx-auto w-full">
+                        <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-zoom">Experiencia y Logros</h2>
+                        <div class="space-y-6">${expItems}</div>
+                    </div>
+                </section>
+            `;
+
+            // Projects
+            const projectItems = portfolioData.projects.map((proj, index) => `
+                <div class="glass-card rounded-2xl overflow-hidden hover-3d reveal-base reveal-zoom" style="transition-delay: ${index * 100}ms; animation-delay: ${Math.random() * 2}s">
+                    <div class="h-48 overflow-hidden relative group">
+                        <img src="${proj.image}" alt="${proj.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-white mb-2">${proj.title}</h3>
+                        <p class="text-gray-400 mb-4">${proj.desc}</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            ${proj.tags.map(tag => `<span class="px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full text-sm">${tag}</span>`).join('')}
+                        </div>
+                        ${proj.link ? `
+                            <a href="${proj.link}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 transition-colors font-medium">
+                                🔗 Ver referencia
+                            </a>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            html += `
+                <section id="projects" class="min-h-screen flex items-center justify-center px-8 py-20">
+                    <div class="max-w-6xl mx-auto w-full">
+                        <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-up">Proyectos Destacados</h2>
+                        <div class="grid md:grid-cols-3 gap-8">${projectItems}</div>
+                    </div>
+                </section>
+            `;
+
+            // Education section removed
+
+            // Contact
+            const contactInfos = portfolioData.contact.info.map(info => {
+                const content = `
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center shadow-lg shadow-pink-500/50 shrink-0">
+                        ${info.icon}
+                    </div>
+                    <span class="text-gray-300 break-all">${info.text}</span>
+                `;
+
+                if (info.link) {
+                    return `
+                        <a href="${info.link}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/5 hover:border-pink-500/50 transition-all hover:bg-white/10 cursor-pointer">
+                            ${content}
+                        </a>
+                    `;
+                }
+
+                return `
+                    <div class="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/5 hover:border-pink-500/50 transition-all">
+                        ${content}
+                    </div>
+                `;
+            }).join('');
+
+            const hobbiesItems = portfolioData.contact.hobbies.map(hobby => `
+                <div class="flex items-center gap-3 p-4 bg-white/5 rounded-xl border border-white/5 hover:border-cyan-500/50 transition-all">
+                    <span class="text-2xl">${hobby.icon}</span>
+                    <span class="text-gray-300">${hobby.name}</span>
+                </div>
+            `).join('');
+
+            const langItems = portfolioData.contact.languages.map(lang => {
+                const fullStars = Math.floor(lang.stars);
+                const hasHalfStar = lang.stars % 1 !== 0;
+                let starsHtml = '';
+
+                for (let i = 0; i < 5; i++) {
+                    if (i < fullStars) {
+                        starsHtml += '<span class="text-yellow-400">★</span>';
+                    } else if (i === fullStars && hasHalfStar) {
+                        starsHtml += '<span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-gray-600" style="-webkit-background-clip: text;">★</span>';
+                    } else {
+                        starsHtml += '<span class="text-gray-600">★</span>';
+                    }
+                }
+
+                return `
+                <div class="flex items-center gap-4 bg-white/5 p-3 rounded-xl border border-white/5 hover:border-${lang.border}/50 transition-all hover:scale-105 w-full">
+                    <div class="w-12 h-12 rounded-full border-2 border-${lang.border} flex items-center justify-center text-2xl bg-black/20 shrink-0">${lang.flag}</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-center mb-1">
+                            <h5 class="text-white font-bold truncate mr-2">${lang.name}</h5>
+                            <span class="text-gray-400 text-sm">${lang.level}</span>
+                        </div>
+                        <div class="text-xl flex tracking-widest leading-none">
+                             ${starsHtml}
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+
+            html += `
+                <section id="contact" class="min-h-screen flex items-center justify-center px-8 py-20">
+                    <div class="max-w-6xl mx-auto w-full">
+                        <h2 class="text-5xl md:text-6xl font-bold mb-16 text-center gradient-text reveal-base reveal-up">Contacto</h2>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="glass-card rounded-2xl p-6 reveal-base reveal-left" style="animation-delay: ${Math.random() * 2}s">
+                                <h3 class="text-2xl font-bold text-white mb-6">Información de Contacto</h3>
+                                <div class="space-y-4">${contactInfos}</div>
+                                <div class="mt-8 text-center">
+                                    <a href="contacto.vcf" download="contacto.vcf" class="save-contact-btn" id="btn-guardar-contacto">
+                                        💾 Guardar Contacto
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="glass-card rounded-2xl p-6 reveal-base reveal-right" style="transition-delay: 200ms; animation-delay: ${Math.random() * 2}s">
+                                <h3 class="text-2xl font-bold text-white mb-6">Pasatiempos</h3>
+                                <div class="grid grid-cols-2 gap-4 mb-8">${hobbiesItems}</div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-4">Idiomas</h4>
+                                    <div class="flex flex-col gap-4">${langItems}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            main.innerHTML = html;
+
+            init3DHover();
+            initScrollReveal();
+        };
+
+        // Insert Modal HTML to body if not exists (done once)
+        if (!document.getElementById('cv-modal')) {
+            const modalHtml = `
+                <div id="cv-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+                    <div class="relative bg-gray-900/90 rounded-3xl p-4 max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-white/10 shadow-2xl transform scale-95 transition-transform duration-300" id="cv-modal-content">
+                        <button onclick="closeCVModal()" class="absolute top-4 right-4 text-white text-2xl hover:text-pink-500 transition-colors z-10">✕</button>
+                        <div class="flex flex-col gap-4 items-center p-4">
+                            <h2 class="text-3xl font-bold text-white mb-4 gradient-text">Curriculum Vitae</h2>
+                            <img src="./1cv.jpg" class="w-full rounded-lg shadow-lg" alt="CV Page 1">
+                            <img src="./2cv.jpg" class="w-full rounded-lg shadow-lg" alt="CV Page 2">
+                            <a href="${portfolioData.personal.cv_link}" download="Ivan_Apolinar_CV.pdf" class="mt-6 flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full text-white font-bold text-lg hover:scale-105 transition-transform shadow-lg shadow-pink-500/50">
+                                📄 Descargar CV en PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+
+        // Modal Logic
+        function showCVModal() {
+            const modal = document.getElementById('cv-modal');
+            const content = document.getElementById('cv-modal-content');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCVModal() {
+            const modal = document.getElementById('cv-modal');
+            const content = document.getElementById('cv-modal-content');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+
+        // Close on click outside
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('cv-modal');
+            if (e.target === modal) {
+                closeCVModal();
+            }
+        });
+
+        // Ejecutar el nuevo renderizado inmediatamente
+        renderContent();
+
+        // --- ANIMACIÓN DE ENTRADA CON LOGO Y BARRA ---
+        document.body.style.overflow = 'hidden'; // Prevenir scroll mientras carga
+        let loadProgress = 0;
+        const preloaderBar = document.getElementById('preloader-bar');
+        const preloaderText = document.getElementById('preloader-text');
+        const preloader = document.getElementById('preloader');
+
+        const loadingInterval = setInterval(() => {
+            // Avance constante para durar exactamente 1.5 segundos (1500ms)
+            // 15ms * 100 pasos = 1500ms
+            loadProgress += 1;
+            if (loadProgress >= 100) {
+                loadProgress = 100;
+                clearInterval(loadingInterval);
+                finishLoading();
+            }
+            if (preloaderBar) preloaderBar.style.width = loadProgress + '%';
+            if (preloaderText) preloaderText.textContent = 'CARGANDO ' + loadProgress + '%';
+        }, 15);
+
+        function finishLoading() {
+            setTimeout(() => {
+                if (preloader) {
+                    preloader.style.opacity = '0'; // Efecto fade out
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                        document.body.style.overflow = ''; // Restaurar scroll
+
+                        const appContent = document.getElementById('app-content');
+                        if (appContent) {
+                            appContent.classList.remove('page-loading');
+                            appContent.classList.add('page-loaded'); // Inicia page fade-in
+                        }
+                    }, 700);
+                }
+            }, 200); // Pequeña pausa al llegar al 100% antes de desvanecer
+        }
+
+        // --- SISTEMA DE ESTADÍSTICAS DE VISITAS ---
+        (function () {
+            // Detectar fuente de la visita por parámetro URL (soporta ?src= y ?source= por retrocompatibilidad)
+            const urlParams = new URLSearchParams(window.location.search);
+            const source = urlParams.get('src') || urlParams.get('source') || 'web'; // 'qr', 'nfc', o 'web'
+
+            // Claves en localStorage
+            const STATS_KEY = 'visitStats';
+
+            // Obtener estadísticas actuales
+            function getStats() {
+                try {
+                    return JSON.parse(localStorage.getItem(STATS_KEY)) || { web: 0, qr: 0, nfc: 0, total: 0 };
+                } catch (e) {
+                    return { web: 0, qr: 0, nfc: 0, total: 0 };
+                }
+            }
+
+            // Registrar visita
+            const stats = getStats();
+            if (source === 'qr' || source === 'nfc' || source === 'web') {
+                stats[source] = (stats[source] || 0) + 1;
+            } else {
+                stats.web = (stats.web || 0) + 1;
+            }
+            stats.total = (stats.total || 0) + 1;
+            localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+
+            // Enviar evento especifico (ej: visit_nfc) a Google Analytics
+            if (typeof gtag === 'function') {
+                const eventName = 'visit_' + source.toLowerCase(); // genera: visit_nfc, visit_qr, visit_web
+                gtag('event', eventName, {
+                    'event_category': 'tarjeta_digital',
+                    'event_label': 'Visita por ' + source.toUpperCase()
+                });
+            }
+
+            // Función global para consultar estadísticas desde la consola
+            window.getVisitStats = function () {
+                const currentStats = getStats();
+                console.log('📊 Estadísticas de Visitas:');
+                console.log('   🌐 Web directa:', currentStats.web);
+                console.log('   📱 Código QR:', currentStats.qr);
+                console.log('   📡 NFC:', currentStats.nfc);
+                console.log('   📈 Total:', currentStats.total);
+                return currentStats;
+            };
+
+            console.log('✅ Sistema de estadísticas activo. Fuente detectada:', source.toUpperCase());
+            console.log('💡 Escribe getVisitStats() en la consola para ver las estadísticas.');
+        })();
+
+        // --- SISTEMA DE DOBLE TOQUE MAESTRO ---
+        (function () {
+            function handleInteraction(e) {
+                // Buscamos el elemento interactivo más cercano
+                const target = e.target.closest('button, a, .save-contact-btn, .nav-btn');
+
+                if (!target) {
+                    // Limpiar si se toca fuera
+                    document.querySelectorAll('.is-selected').forEach(el => el.classList.remove('is-selected'));
+                    return;
+                }
+
+                // Primer toque: No tiene la clase 'is-selected'
+                if (!target.classList.contains('is-selected')) {
+                    // Detener COMPLETAMENTE la acción
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+
+                    // Limpiar otras selecciones
+                    document.querySelectorAll('.is-selected').forEach(el => el.classList.remove('is-selected'));
+                    
+                    // Marcar como seleccionado
+                    target.classList.add('is-selected');
+
+                    // Feedback táctil inteligente
+                    if (navigator.vibrate) navigator.vibrate([10]);
+                    
+                    console.log('Toque 1: Seleccionado');
+                } else {
+                    // Segundo toque: Ya tiene 'is-selected'
+                    // Permitimos que el evento fluya normalmente para que se ejecute la acción
+                    console.log('Toque 2: Ejecutando acción');
+                    
+                    // Quitamos la selección después de un momento para permitir repetir la acción si se desea
+                    setTimeout(() => {
+                        target.classList.remove('is-selected');
+                    }, 800);
+                }
+            }
+
+            // Usamos capture: true para interceptar antes que cualquier otro script o atributo onclick
+            document.addEventListener('click', handleInteraction, { capture: true });
+        })();
