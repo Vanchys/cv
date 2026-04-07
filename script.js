@@ -316,7 +316,7 @@
 
             // Hero
             html += `
-                <section id="hero" style="min-height:100svh;display:flex;align-items:center;justify-content:center;padding-top:5rem;padding-bottom:2rem;overflow:hidden;">
+                <section id="hero" style="min-height:100svh;display:flex;align-items:center;justify-content:center;padding-top:8rem;padding-bottom:2rem;overflow:hidden;">
                     <div style="max-width:48rem;width:100%;margin:0 auto;text-align:center;padding:0 1rem;" class="reveal-base reveal-zoom">
                         <div style="position:relative;display:inline-block;margin-bottom:2.5rem;" class="floating">
                             <div style="position:absolute;inset:-8px;background:linear-gradient(to right,#ff0080,#8000ff,#00bfff);border-radius:9999px;filter:blur(20px);opacity:0.5;"></div>
@@ -342,13 +342,13 @@
                             ${portfolioData.personal.bio}
                         </p>
                         <div style="display:flex;flex-direction:column;gap:0.75rem;align-items:center;width:100%;max-width:280px;margin:0 auto;">
+                            ${portfolioData.personal.cv_link ? `
+                            <button onclick="showCVModal()" class="cv-btn" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff0080,#8000ff,#00bfff);border-radius:9999px;color:#fff;font-weight:600;border:none;cursor:pointer;width:100%;font-size:0.95rem;box-shadow:0 10px 30px rgba(255,0,128,0.35);">
+                                🧿 Visualizar CV
+                            </button>` : ''}
                             <a href="#contact" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff0080,#8000ff,#00bfff);border-radius:9999px;color:#fff;font-weight:600;text-decoration:none;width:100%;font-size:0.95rem;box-shadow:0 10px 30px rgba(255,0,128,0.35);">
                                 📧 Contáctame
                             </a>
-                            ${portfolioData.personal.cv_link ? `
-                            <button onclick="showCVModal()" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff0080,#8000ff,#00bfff);border-radius:9999px;color:#fff;font-weight:600;border:none;cursor:pointer;width:100%;font-size:0.95rem;box-shadow:0 10px 30px rgba(255,0,128,0.35);">
-                                🧿 Visualizar CV
-                            </button>` : ''}
                         </div>
                     </div>
                 </section>
@@ -717,8 +717,8 @@
                     return;
                 }
 
-                // Excepción: Los botones de navegación y botones de cerrar modal se ejecutan al instante (un toque)
-                if (target.classList.contains('nav-btn') || target.closest('#nav-container') || target.classList.contains('close-modal-btn')) {
+                // Excepción: Los botones de navegación, botones de cerrar modal y Visualizar CV se ejecutan al instante (un toque)
+                if (target.classList.contains('nav-btn') || target.closest('#nav-container') || target.classList.contains('close-modal-btn') || target.classList.contains('cv-btn')) {
                     document.querySelectorAll('.is-selected').forEach(el => el.classList.remove('is-selected'));
                     return;
                 }
