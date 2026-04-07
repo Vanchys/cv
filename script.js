@@ -179,17 +179,17 @@
         }
 
         // Partículas
-        // Partículas — solo dentro del viewport para evitar overflow
+        // Partículas — Cobertura total
         const particlesContainer = document.getElementById('particles');
         particlesContainer.style.overflow = 'hidden';
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 50; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             const size = Math.random() * 3 + 1.5;
             particle.style.width = size + 'px';
             particle.style.height = size + 'px';
-            // Limitar al 90% del ancho para evitar partículas en el borde
-            particle.style.left = (Math.random() * 90 + 5) + '%';
+            // Cobertura total del 0% al 100%
+            particle.style.left = Math.random() * 100 + '%';
             particle.style.top = Math.random() * 100 + '%';
             particle.style.background = 'white';
             particle.style.opacity = Math.random() * 0.4 + 0.1;
@@ -318,9 +318,9 @@
             html += `
                 <section id="hero" style="min-height:100svh;display:flex;align-items:center;justify-content:center;padding-top:8rem;padding-bottom:2rem;overflow:hidden;">
                     <div style="max-width:48rem;width:100%;margin:0 auto;text-align:center;padding:0 1rem;" class="reveal-base reveal-zoom">
-                        <div style="position:relative;display:inline-block;margin-bottom:2.5rem;" class="floating">
+                        <div style="position:relative;display:inline-block;margin-bottom:3.5rem;" class="floating">
                             <div style="position:absolute;inset:-8px;background:linear-gradient(to right,#ff0080,#8000ff,#00bfff);border-radius:9999px;filter:blur(20px);opacity:0.5;"></div>
-                            <div style="position:relative;width:12rem;height:12rem;border-radius:9999px;background:linear-gradient(to right,#ff0080,#00bfff);padding:3px;margin:0 auto;">
+                            <div style="position:relative;width:15rem;height:15rem;border-radius:9999px;background:linear-gradient(to right,#ff0080,#00bfff);padding:3px;margin:0 auto;">
                                 <div style="width:100%;height:100%;border-radius:9999px;background:#000;overflow:hidden;">
                                     ${portfolioData.personal.photo ?
                     `<img src="${portfolioData.personal.photo}" alt="${portfolioData.personal.name}" style="width:100%;height:100%;object-fit:cover;">` :
@@ -329,16 +329,16 @@
                                 </div>
                             </div>
                         </div>
-                        <h1 style="font-size:clamp(2rem,10vw,5rem);font-weight:800;margin-bottom:0.75rem;line-height:1.1;word-break:break-word;overflow-wrap:break-word;" class="gradient-text">
+                        <h1 style="font-size:clamp(2rem,10vw,5rem);font-weight:800;margin-bottom:0.5rem;line-height:1.1;word-break:break-word;overflow-wrap:break-word;" class="gradient-text">
                             ${portfolioData.personal.name}
                         </h1>
-                        <p style="font-size:clamp(1rem,4vw,1.5rem);color:#c084fc;margin-bottom:0.5rem;font-weight:300;">
+                        <p style="font-size:clamp(1rem,4vw,1.5rem);color:#c084fc;margin-bottom:0.25rem;font-weight:300;">
                             ${portfolioData.personal.title}
                         </p>
-                        <p style="font-size:0.95rem;color:#9ca3af;margin-bottom:1rem;">
+                        <p style="font-size:0.95rem;color:#9ca3af;margin-bottom:0.75rem;">
                             ${portfolioData.personal.age_location}
                         </p>
-                        <p id="bio-text" style="font-size:1rem;color:#9ca3af;margin-bottom:2rem;max-width:36rem;margin-left:auto;margin-right:auto;line-height:1.7;transition:all 1s ease;opacity:0;transform:translateY(10px);">
+                        <p id="bio-text" style="font-size:1rem;color:#9ca3af;margin-bottom:1.5rem;max-width:36rem;margin-left:auto;margin-right:auto;line-height:1.7;transition:all 1s ease;opacity:0;transform:translateY(10px);">
                             ${portfolioData.personal.bio}
                         </p>
                         <div style="display:flex;flex-direction:column;gap:0.75rem;align-items:center;width:100%;max-width:280px;margin:0 auto;">
