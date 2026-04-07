@@ -427,7 +427,7 @@ footer {
 /* Mobile-Specific Hero Layout Tuning */
 @media (max-width: 639px) {
     .hero-section {
-        padding-top: 5vh !important; /* Fuerza a subir todo el bloque en pantallas chicas */
+        padding-top: 12vh !important; /* ⬇️ Empuja todo el bloque hacia abajo para dar más espacio arriba de la imagen */
     }
     .hero-image-wrap {
         margin-bottom: 3.5rem !important; /* ⬆️ Aumentado el espacio entre Foto y Nombre */
